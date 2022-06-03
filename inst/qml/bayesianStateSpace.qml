@@ -40,7 +40,7 @@ Form
 		DoubleField
 		{
 			name: "expectedModelSize"
-			label: "Expected predictors"
+			label: qsTr("Expected predictors")
 			defaultValue: 1
 		}
 	}
@@ -176,7 +176,7 @@ Form
 			Layout.columnSpan: 2
 
 			columns: 2
-			DoubleField { name:"DynRegLags";		label: "Lag of coefficients";	fieldWidth: 40;}
+			DoubleField { name:"DynRegLags";		label: qsTr("Lag of coefficients");	fieldWidth: 40;}
 		}
 
 		Group
@@ -369,9 +369,9 @@ Form
 			{
 				name:"checkControlChart"; label: qsTr("Show control chart")
 
-				DoubleField {name: "controlPeriod"; label:"Control period end"; defaultValue: 100}
-				DoubleField {name: "controlSigma"; label:"σ threshold"; defaultValue: 2}
-				CheckBox{name: "checkControlProbPlot";label: "Show probalistic control plot"}
+				DoubleField {name: "controlPeriod"; label:qsTr("Control period end"); defaultValue: 100}
+				DoubleField {name: "controlSigma"; label:qsTr("σ threshold"); defaultValue: 2}
+				CheckBox{name: "checkControlProbPlot";label: qsTr("Show probalistic control plot")}
 
 			}
 
@@ -404,9 +404,9 @@ Form
 		//	values: [ "Gaussian", "Logit","Poisson","Student"]
 		//}
 
-		DoubleField { name:"mcmcDraws";		label: "Desired MCMC draws";	fieldWidth: 60; defaultValue: 2000}
+		DoubleField { name:"mcmcDraws";		label: qsTr("Desired MCMC draws");	fieldWidth: 60; defaultValue: 2000}
 
-		DoubleField { name:"timeout";		label: "Timout in seconds";	fieldWidth: 60; defaultValue: 120}
+		DoubleField { name:"timeout";		label: qsTr("Timout in seconds");	fieldWidth: 60; defaultValue: 120}
 
 		RadioButtonGroup
 		{
@@ -417,7 +417,7 @@ Form
 			{
 				value: "burnSuggested"; label: qsTr("Automatic suggestion"); checked: true
 				DoubleField { name:"propBurnSuggested"
-											label: "Proportion"
+											label: qsTr("Proportion")
 											fieldWidth: 60
 										 	defaultValue: 0.1
 											min:0
@@ -435,7 +435,7 @@ Form
 										 	}
 			}
 		}
-		DoubleField { name:"seed";		label: "Seed";	fieldWidth: 60; defaultValue: 1}
+		DoubleField { name:"seed";		label: qsTr("Seed");	fieldWidth: 60; defaultValue: 1}
 
 	}
 }
