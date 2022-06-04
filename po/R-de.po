@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspBsts 0.1.0\n"
 "POT-Creation-Date: 2022-06-02 11:35\n"
-"PO-Revision-Date: 2022-06-04 14:19+0000\n"
+"PO-Revision-Date: 2022-06-05 15:15+0000\n"
 "Last-Translator: Johannes Keyser <joke@fsfe.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/jasp/jaspbsts-r/"
 "de/>\n"
@@ -34,45 +34,48 @@ msgstr "Harveys Anpassungsgüte"
 
 msgid "Test: Only %1$s draws were sampled out of the desired %2$s. Additionally, %3$s MCMC draws out of %1$s are discarded as burn in."
 msgstr ""
+"Test: Es wurden nur %1$s der gewünschten %2$s Ziehungen gesampelt. "
+"Zusätzlich werden %3$s MCMC-Ziehungen aus den %1$s als Aufwärmphase "
+"verworfen."
 
 msgid "Posterior Summary of Coefficients"
-msgstr ""
+msgstr "Posterior-Zusammenfassung der Koeffizienten"
 
 msgid "%s%% Credible Interval"
-msgstr ""
+msgstr "%s%% Glaubwürdigkeitsintervall"
 
 msgid "Coefficients"
-msgstr ""
+msgstr "Koeffizienten"
 
 msgid "P(incl)"
-msgstr ""
+msgstr "P(inkl)"
 
 msgid "P(incl|data)"
-msgstr ""
+msgstr "P(inkl|Daten)"
 
 msgid "BF<sub>inclusion</sub>"
-msgstr ""
+msgstr "BF<sub>Inklusion</sub>"
 
 msgid "Mean"
-msgstr ""
+msgstr "Mittelwert"
 
 msgid "SD"
-msgstr ""
+msgstr "SD"
 
 msgid "Mean<sub>inclusion</sub>"
-msgstr ""
+msgstr "Mittelwert<sub>Inklusion</sub>"
 
 msgid "SD<sub>inclusion</sub>"
-msgstr ""
+msgstr "SD<sub>Inklusion</sub>"
 
 msgid "Lower"
-msgstr ""
+msgstr "Untere"
 
 msgid "Upper"
-msgstr ""
+msgstr "Obere"
 
 msgid "State Plots"
-msgstr ""
+msgstr "Zustandsdiagramme"
 
 msgid "Aggregated State"
 msgstr ""
@@ -84,10 +87,10 @@ msgid "Control Plots"
 msgstr ""
 
 msgid "Error Plots"
-msgstr ""
+msgstr "Fehlerdiagramme"
 
 msgid "Residual Plot"
-msgstr ""
+msgstr "Residuendiagramm"
 
 msgid "Forecast Error Plot"
-msgstr ""
+msgstr "Prognosefehlerdiagramm"
