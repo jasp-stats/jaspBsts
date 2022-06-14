@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-06-05 14:19+0000\n"
+"PO-Revision-Date: 2022-06-14 22:21+0000\n"
 "Last-Translator: Johannes Keyser <joke@fsfe.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/jasp/jaspbsts-qml/"
 "de/>\n"
@@ -90,19 +90,19 @@ msgstr "Maximale Verzögerungen"
 
 msgctxt "bayesianStateSpace|"
 msgid "Add local level component"
-msgstr ""
+msgstr "Komponente auf lokaler Ebene hinzufügen"
 
 msgctxt "bayesianStateSpace|"
 msgid "Add local linear trend component"
-msgstr ""
+msgstr "Lokale lineare Trendkomponente hinzufügen"
 
 msgctxt "bayesianStateSpace|"
 msgid "Add semi-local linear trend"
-msgstr ""
+msgstr "Semi-lokalen linearen Trend hinzufügen"
 
 msgctxt "bayesianStateSpace|"
 msgid "Add dynamic regression component"
-msgstr ""
+msgstr "Dynamische Regressionskomponente hinzufügen"
 
 msgctxt "bayesianStateSpace|"
 msgid "Seasonalities"
