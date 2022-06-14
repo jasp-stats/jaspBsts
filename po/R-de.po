@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspBsts 0.1.0\n"
 "POT-Creation-Date: 2022-06-02 11:35\n"
-"PO-Revision-Date: 2022-06-05 15:15+0000\n"
+"PO-Revision-Date: 2022-06-14 22:21+0000\n"
 "Last-Translator: Johannes Keyser <joke@fsfe.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/jasp/jaspbsts-r/"
 "de/>\n"
@@ -21,10 +21,10 @@ msgid "Model Summary"
 msgstr "Modellzusammenfassung"
 
 msgid "Residual SD"
-msgstr ""
+msgstr "Residuelle SD"
 
 msgid "Prediction SD"
-msgstr ""
+msgstr "Vorhersage SD"
 
 msgid "R%s"
 msgstr "R%s"
@@ -78,13 +78,13 @@ msgid "State Plots"
 msgstr "Zustandsdiagramme"
 
 msgid "Aggregated State"
-msgstr ""
+msgstr "Aggregierter Zustand"
 
 msgid "Component States"
-msgstr ""
+msgstr "Komponenten-Zustände"
 
 msgid "Control Plots"
-msgstr ""
+msgstr "Kontrolldiagramme"
 
 msgid "Error Plots"
 msgstr "Fehlerdiagramme"
