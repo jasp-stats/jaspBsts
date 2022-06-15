@@ -1,21 +1,19 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-06-14 22:21+0000\n"
-"Last-Translator: ecadrian <ecadrian@hotmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/jasp/jaspbsts-"
-"qml/es/>\n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Language: es\n"
+"X-Source-Language: American English\n"
 "X-Qt-Contexts: true\n"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/Description.qml:7
 msgctxt "Description|"
 msgid "BSTS"
 msgstr "BSTS"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/Description.qml:8
 msgctxt "Description|"
 msgid ""
 "This module offers a Bayesian take on linear Gaussian state space models "
@@ -24,206 +22,259 @@ msgstr ""
 "Este módulo ofrece un enfoque Bayesiano sobre modelos del Espacio de los "
 "Estados Normales Lineales adecuado para   el análisis de series temporales."
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:13
 msgctxt "bayesianStateSpace|"
 msgid "Dependent Variable"
 msgstr "Variable Dependiente"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:14
 msgctxt "bayesianStateSpace|"
 msgid "Covariates"
 msgstr "Covariables"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:15
 msgctxt "bayesianStateSpace|"
 msgid "Factors"
 msgstr "Factores"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:16
 msgctxt "bayesianStateSpace|"
 msgid "Time"
 msgstr "Tiempo"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:23
 msgctxt "bayesianStateSpace|"
 msgid "Output"
 msgstr "Salida"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:27
 msgctxt "bayesianStateSpace|"
 msgid "Posterior summary of coefficients"
 msgstr "Resumen posterior de coeficientes"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:28
 msgctxt "bayesianStateSpace|"
 msgid "Show means across draws included"
 msgstr "Mostrar las medias de las extracciones incluidas"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:33
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:313
 msgctxt "bayesianStateSpace|"
 msgid "Credible interval"
 msgstr "Intervalo de credibilidad"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:43
 msgctxt "bayesianStateSpace|"
 msgid "Expected predictors"
 msgstr "Predictores esperados"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:51
 msgctxt "bayesianStateSpace|"
 msgid "Model Components"
 msgstr "Componentes del Modelo"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:60
 msgctxt "bayesianStateSpace|"
 msgid "Components"
 msgstr "Componentes"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:69
 msgctxt "bayesianStateSpace|"
 msgid "Add autoregressive component"
 msgstr "Añadir componente autorregresiva"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:81
 msgctxt "bayesianStateSpace|"
 msgid "Lag selection method"
 msgstr "Método de selección del retardo"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:85
 msgctxt "bayesianStateSpace|"
 msgid "Manually"
 msgstr "Manual"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:90
 msgctxt "bayesianStateSpace|"
 msgid "No. of lags"
 msgstr "Número de retardos"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:97
 msgctxt "bayesianStateSpace|"
 msgid "Automatic"
 msgstr "Automático"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:99
 msgctxt "bayesianStateSpace|"
 msgid "Maximal lags"
 msgstr "Retardo máximo"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:117
 msgctxt "bayesianStateSpace|"
 msgid "Add local level component"
 msgstr "Añadir componente de nivel local"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:136
 msgctxt "bayesianStateSpace|"
 msgid "Add local linear trend component"
 msgstr "Añadir componente de tendencia lineal"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:164
 msgctxt "bayesianStateSpace|"
 msgid "Add semi-local linear trend"
 msgstr "Añadir tendencia lineal semilocal"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:173
 msgctxt "bayesianStateSpace|"
 msgid "Add dynamic regression component"
 msgstr "Añadir componente de regresión dinámica"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:179
 msgctxt "bayesianStateSpace|"
 msgid "Lag of coefficients"
 msgstr "Retardo de los coeficientes"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:184
 msgctxt "bayesianStateSpace|"
 msgid "Seasonalities"
 msgstr "Estacionalidades"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:192
 msgctxt "bayesianStateSpace|"
 msgid "Name"
 msgstr "Nombre"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:193
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:432
 msgctxt "bayesianStateSpace|"
 msgid "Number"
 msgstr "Número"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:194
 msgctxt "bayesianStateSpace|"
 msgid "Duration"
 msgstr "Duración"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:195
 msgctxt "bayesianStateSpace|"
 msgid "Inverse gamma prior"
 msgstr "Previo de Gamma Inversa"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:196
 msgctxt "bayesianStateSpace|"
 msgid "Normal prior initial state"
 msgstr "Estado inicial previo normal"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:291
 msgctxt "bayesianStateSpace|"
 msgid "Plots"
 msgstr "Gráficos"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:296
 msgctxt "bayesianStateSpace|"
 msgid "State Plots"
 msgstr "Gráficos de Estado"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:301
 msgctxt "bayesianStateSpace|"
 msgid "Aggregated state contribution"
 msgstr "Contribución del estado agregado"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:318
 msgctxt "bayesianStateSpace|"
 msgid "Show observations"
 msgstr "Mostrar las observaciones"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:327
 msgctxt "bayesianStateSpace|"
 msgid "Component state contribution"
 msgstr "Contribución del estado componente"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:349
 msgctxt "bayesianStateSpace|"
 msgid "Residuals"
 msgstr "Errores"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:350
 msgctxt "bayesianStateSpace|"
 msgid "Posterior distribution of residuals"
 msgstr "Distribución posterior de los errores"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:352
 msgctxt "bayesianStateSpace|"
 msgid "Posterior distribution of one-step-ahead prediction error"
 msgstr "Distribución posterior del error de predicción un paso por delante"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:357
 msgctxt "bayesianStateSpace|"
 msgid "Prediction"
 msgstr "Predicción"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:361
 msgctxt "bayesianStateSpace|"
 msgid "Horizon"
 msgstr "Horizonte"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:368
 msgctxt "bayesianStateSpace|"
 msgid "Control chart"
 msgstr "Gráfico de control"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:371
 msgctxt "bayesianStateSpace|"
 msgid "Show control chart"
 msgstr "Mostrar el gráfico de control"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:373
 msgctxt "bayesianStateSpace|"
 msgid "Control period end"
 msgstr "Fin del período de control"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:374
 msgctxt "bayesianStateSpace|"
 msgid "σ threshold"
 msgstr "umbral de σ"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:375
 msgctxt "bayesianStateSpace|"
 msgid "Show probalistic control plot"
 msgstr "Mostrar el gráfico de control probabilístico"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:398
 msgctxt "bayesianStateSpace|"
 msgid "Advanced Options"
 msgstr "Opciones Avanzadas"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:408
 msgctxt "bayesianStateSpace|"
 msgid "Desired MCMC draws"
 msgstr "Extracciones MCMC deseadas"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:410
 msgctxt "bayesianStateSpace|"
 msgid "Timout in seconds"
 msgstr "Límite de tiempo en segundos"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:415
 msgctxt "bayesianStateSpace|"
 msgid "Burn-in Specification"
 msgstr "Especificación del Calentamiento"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:419
 msgctxt "bayesianStateSpace|"
 msgid "Automatic suggestion"
 msgstr "Sugerencia automática"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:421
 msgctxt "bayesianStateSpace|"
 msgid "Proportion"
 msgstr "Proporción"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:430
 msgctxt "bayesianStateSpace|"
 msgid "Manual"
 msgstr "Manual"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:439
 msgctxt "bayesianStateSpace|"
 msgid "Seed"
 msgstr "Semilla"

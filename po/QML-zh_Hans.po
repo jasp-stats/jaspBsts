@@ -1,191 +1,277 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-06-04 03:01+0000\n"
-"Last-Translator: Shun Wang <shuonwang@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"jasp/jaspbsts-qml/zh_Hans/>\n"
-"Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Language: zh_Hans\n"
 "X-Qt-Contexts: true\n"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/Description.qml:7
 msgctxt "Description|"
 msgid "BSTS"
 msgstr "BSTS"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/Description.qml:8
 msgctxt "Description|"
 msgid ""
 "This module offers a Bayesian take on linear Gaussian state space models "
 "suitable for   time series analysis."
 msgstr "用于时间序列分析的线性高斯状态空间模型的贝叶斯模型。"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:13
 msgctxt "bayesianStateSpace|"
 msgid "Dependent Variable"
 msgstr "因变量"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:14
 msgctxt "bayesianStateSpace|"
 msgid "Covariates"
 msgstr "协变量"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:15
 msgctxt "bayesianStateSpace|"
 msgid "Factors"
 msgstr "因子"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:16
 msgctxt "bayesianStateSpace|"
 msgid "Time"
 msgstr "时间"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:23
 msgctxt "bayesianStateSpace|"
 msgid "Output"
 msgstr "输出"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:27
 msgctxt "bayesianStateSpace|"
 msgid "Posterior summary of coefficients"
 msgstr "系数的后验摘要"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:28
 msgctxt "bayesianStateSpace|"
 msgid "Show means across draws included"
 msgstr ""
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:33
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:313
 msgctxt "bayesianStateSpace|"
 msgid "Credible interval"
 msgstr "可信区间"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:51
 msgctxt "bayesianStateSpace|"
 msgid "Model Components"
 msgstr "模型组件"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:60
 msgctxt "bayesianStateSpace|"
 msgid "Components"
 msgstr "成分（Components）"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:69
 msgctxt "bayesianStateSpace|"
 msgid "Add autoregressive component"
 msgstr "添加自回归成分"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:81
 msgctxt "bayesianStateSpace|"
 msgid "Lag selection method"
 msgstr "滞后选择方法"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:85
 msgctxt "bayesianStateSpace|"
 msgid "Manually"
 msgstr "手动"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:90
 msgctxt "bayesianStateSpace|"
 msgid "No. of lags"
 msgstr "滞后数"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:97
 msgctxt "bayesianStateSpace|"
 msgid "Automatic"
 msgstr "自动"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:99
 msgctxt "bayesianStateSpace|"
 msgid "Maximal lags"
 msgstr "最大滞后"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:117
 msgctxt "bayesianStateSpace|"
 msgid "Add local level component"
 msgstr "添加局部级别组件"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:136
 msgctxt "bayesianStateSpace|"
 msgid "Add local linear trend component"
 msgstr "添加局部线性趋势组件"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:164
 msgctxt "bayesianStateSpace|"
 msgid "Add semi-local linear trend"
 msgstr "添加半局部线性趋势"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:173
 msgctxt "bayesianStateSpace|"
 msgid "Add dynamic regression component"
 msgstr "添加动态回归组件"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:184
 msgctxt "bayesianStateSpace|"
 msgid "Seasonalities"
 msgstr "季节性"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:192
 msgctxt "bayesianStateSpace|"
 msgid "Name"
 msgstr "名称"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:193
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:432
 msgctxt "bayesianStateSpace|"
 msgid "Number"
 msgstr "数量"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:194
 msgctxt "bayesianStateSpace|"
 msgid "Duration"
 msgstr "期间"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:195
 msgctxt "bayesianStateSpace|"
 msgid "Inverse gamma prior"
 msgstr "逆伽马先验"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:196
 msgctxt "bayesianStateSpace|"
 msgid "Normal prior initial state"
 msgstr "正态先验初始状态"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:291
 msgctxt "bayesianStateSpace|"
 msgid "Plots"
 msgstr "绘图"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:296
 msgctxt "bayesianStateSpace|"
 msgid "State Plots"
 msgstr "状态图"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:301
 msgctxt "bayesianStateSpace|"
 msgid "Aggregated state contribution"
 msgstr "聚合状态分布图"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:318
 msgctxt "bayesianStateSpace|"
 msgid "Show observations"
 msgstr "显示观察值"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:327
 msgctxt "bayesianStateSpace|"
 msgid "Component state contribution"
 msgstr "组件状态分布图"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:349
 msgctxt "bayesianStateSpace|"
 msgid "Residuals"
 msgstr "残差"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:350
 msgctxt "bayesianStateSpace|"
 msgid "Posterior distribution of residuals"
 msgstr "残差的后验分布"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:352
 msgctxt "bayesianStateSpace|"
 msgid "Posterior distribution of one-step-ahead prediction error"
 msgstr "向前预测一步的误差的后验分布"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:357
 msgctxt "bayesianStateSpace|"
 msgid "Prediction"
 msgstr "预测"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:361
 msgctxt "bayesianStateSpace|"
 msgid "Horizon"
 msgstr "预测水平(Horizon)"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:368
 msgctxt "bayesianStateSpace|"
 msgid "Control chart"
 msgstr "控制图"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:371
 msgctxt "bayesianStateSpace|"
 msgid "Show control chart"
 msgstr "显示控制图"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:398
 msgctxt "bayesianStateSpace|"
 msgid "Advanced Options"
 msgstr "高级选项"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:415
 msgctxt "bayesianStateSpace|"
 msgid "Burn-in Specification"
 msgstr "Burn-in 规则"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:419
 msgctxt "bayesianStateSpace|"
 msgid "Automatic suggestion"
 msgstr "自动建议"
 
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:430
 msgctxt "bayesianStateSpace|"
 msgid "Manual"
 msgstr "手动设置"
+
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:43
+msgctxt "bayesianStateSpace|"
+msgid "Expected predictors"
+msgstr ""
+
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:179
+msgctxt "bayesianStateSpace|"
+msgid "Lag of coefficients"
+msgstr ""
+
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:373
+msgctxt "bayesianStateSpace|"
+msgid "Control period end"
+msgstr ""
+
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:374
+msgctxt "bayesianStateSpace|"
+msgid "σ threshold"
+msgstr ""
+
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:375
+msgctxt "bayesianStateSpace|"
+msgid "Show probalistic control plot"
+msgstr ""
+
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:408
+msgctxt "bayesianStateSpace|"
+msgid "Desired MCMC draws"
+msgstr ""
+
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:410
+msgctxt "bayesianStateSpace|"
+msgid "Timout in seconds"
+msgstr ""
+
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:421
+msgctxt "bayesianStateSpace|"
+msgid "Proportion"
+msgstr ""
+
+#: /Users/brunoboutin/JASP/source/jaspBsts/inst/qml/bayesianStateSpace.qml:439
+msgctxt "bayesianStateSpace|"
+msgid "Seed"
+msgstr ""
