@@ -10,10 +10,10 @@ Form
 	{
 
 		AvailableVariablesList	{ name: "allVariablesList" }
-		AssignedVariablesList	{ name: "dependent";	title: qsTr("Dependent Variable");	suggestedColumns: ["scale"];	singleVariable: true}
-		AssignedVariablesList	{ name: "covariates";	title: qsTr("Covariates");			suggestedColumns: ["scale"];	allowedColumns: ["scale"];	id: covariates	}
-		AssignedVariablesList 	{ name: "factors";		title: qsTr("Factors");				allowedColumns: ["ordinal", "nominal", "nominalText"];		id: factors		}
-		AssignedVariablesList	{ name: "dates";		title: qsTr("Time");				suggestedColumns: ["nominal"];	singleVariable: true		}
+		AssignedVariablesList	{ name: "dependent";		title: qsTr("Dependent Variable");	suggestedColumns: ["scale"];	singleVariable: true}
+		AssignedVariablesList	{ name: "covariates";		title: qsTr("Covariates");			suggestedColumns: ["scale"];	allowedColumns: ["scale"];	id: covariates		}
+		AssignedVariablesList 	{ name: "fixedFactors";		title: qsTr("fixedFactors");		allowedColumns: ["ordinal", "nominal", "nominalText"];		id: fixedFactors	}
+		AssignedVariablesList	{ name: "dates";			title: qsTr("Time");				suggestedColumns: ["nominal"];	singleVariable: true		}
 	}
 
 	columns: 2
@@ -24,14 +24,14 @@ Form
 		columns: 1
 		CheckBox
 		{
-			name: "postSummaryTable"; label: qsTr("Posterior summary of coefficients"); id: postSummaryTable
+			name: "posteriorSummaryTable"; label: qsTr("Posterior summary of coefficients"); id: posteriorSummaryTable
 			CheckBox { name: "showCoefMeanInc"; label: qsTr("Show means across draws included") }
 		}
 		CIField
 		{
-			name: "posteriorSummaryCoefCredibleIntervalValue"
+			name: "posteriorSummaryCiValue"
 			label: qsTr("Credible interval")
-			enabled: postSummaryTable.checked
+			enabled: posteriorSummaryTable.checked
 		}
 	}
 
@@ -39,7 +39,7 @@ Form
 	{
 		DoubleField
 		{
-			name: "expectedModelSize"
+			name: "expectedPredictors"
 			label: qsTr("Expected predictors")
 			defaultValue: 1
 		}
@@ -59,13 +59,13 @@ Form
 				name: "availableTerm"
 				title: qsTr("Components")
 				width: parent.width / 4
-				source: ["covariates", "factors"]
+				source: ["covariates", "fixedFactors"]
 			}
 			ModelTermsList {name: "modelTerms";width: parent.width * 5 / 9}
 		}
 		CheckBox
 		{
-			name: "checkboxAr"
+			name: "autoregressiveComponent"
 			label: qsTr("Add autoregressive component")
 			checked: false
 			id: checkAr
@@ -82,11 +82,11 @@ Form
 				radioButtonsOnSameRow: true
 				RadioButton
 				{
-					value: "manualAR"; label: qsTr("Manually"); checked: true
+					value: "manual"; label: qsTr("Manually"); checked: true
 					//columns: 1
 					IntegerField
 					{
-						name: "noLags"
+						name: "lags"
 						label: qsTr("No. of lags")
 						fieldWidth: 40
 					defaultValue: 1
@@ -96,7 +96,7 @@ Form
 				{
 					value: "autoAR"; label: qsTr("Automatic")
 					columns: 1
-					DoubleField { name: "maxNoLags";	label: qsTr("Maximal lags");	fieldWidth: 40; 	defaultValue: 1;}
+					DoubleField { name: "maxLags";	label: qsTr("Maximal lags");	fieldWidth: 40; 	defaultValue: 1;}
 				}
 			}
 
@@ -113,7 +113,7 @@ Form
 
 		CheckBox
 		{
-			name: "checkboxLocalLevel"
+			name: "localLevelComponent"
 			label: qsTr("Add local level component")
 			id: checkLocalLevel
 			checked: false
@@ -132,7 +132,7 @@ Form
 		// abbreviated as Llt for priors
 		CheckBox
 		{
-			name: "checkboxLocalLinearTrend"
+			name: "localLinearTrendComponent"
 			label: qsTr("Add local linear trend component")
 			id: checkLocalLinearTrend
 			checked: false
@@ -160,7 +160,7 @@ Form
 		//Semi Local Linear Trend
 		CheckBox
 		{
-			name: "checkboxSemiLocalLinearTrend"
+			name: "semiLocalLinearTrendComponent"
 			label : qsTr("Add semi-local linear trend")
 			checked: false
 			id: checkSemiLocalLinearTrend
@@ -169,14 +169,14 @@ Form
 		//Dynamic Regression Component
 		CheckBox
 		{
-			name: "checkboxDynReg"
+			name: "dynamicRegregressionComponent"
 			label: qsTr("Add dynamic regression component")
 			checked: false
 			id: checkDynReg
 			Layout.columnSpan: 2
 
 			columns: 2
-			DoubleField { name:"DynRegLags";		label: qsTr("Lag of coefficients");	fieldWidth: 40;}
+			DoubleField { name:"dynamicRegregressionLags";		label: qsTr("Lag of coefficients");	fieldWidth: 40;}
 		}
 
 		Group
@@ -189,10 +189,10 @@ Form
 
 				RowLayout
 				{
-					Label { text: qsTr("Name"); Layout.preferredWidth: 80 * preferencesModel.uiScale							}
-					Label { text: qsTr("Number"); Layout.preferredWidth: 45 * preferencesModel.uiScale				}
-					Label { text: qsTr("Duration"); Layout.preferredWidth: 45 * preferencesModel.uiScale				}
-					Label { text: qsTr("Inverse gamma prior"); Layout.preferredWidth: 140 * preferencesModel.uiScale			}
+					Label { text: qsTr("Name"); Layout.preferredWidth: 80 * preferencesModel.uiScale								}
+					Label { text: qsTr("Number"); Layout.preferredWidth: 45 * preferencesModel.uiScale								}
+					Label { text: qsTr("Duration"); Layout.preferredWidth: 45 * preferencesModel.uiScale							}
+					Label { text: qsTr("Inverse gamma prior"); Layout.preferredWidth: 140 * preferencesModel.uiScale				}
 					Label { text: qsTr("Normal prior initial state"); Layout.preferredWidth: 140 * preferencesModel.uiScale			}
 				}
 
@@ -297,7 +297,7 @@ Form
 
 			CheckBox
 			{
-				name: "checkboxPlotAggregatedStates"
+				name: "aggregatedStatesPlot"
 				label: qsTr("Aggregated state contribution")
 
 				//DropDown
@@ -314,7 +314,7 @@ Form
 				}
 				CheckBox
 				{
-					name: "actualValuesAggregatedStates"
+					name: "observationsShown"
 					label: qsTr("Show observations")
 				}
 
@@ -323,7 +323,7 @@ Form
 
 			CheckBox
 			{
-				name: "checkboxPlotComponentStates"
+				name: "componentStatesPlot"
 				label: qsTr("Component state contribution")
 
 			}
@@ -347,9 +347,9 @@ Form
 		Group
 		{
 			title: qsTr("Residuals")
-			CheckBox {name:"checkBoxResidual"; label: qsTr("Posterior distribution of residuals")}
+			CheckBox {name:"residualPlot"; label: qsTr("Posterior distribution of residuals")}
 			//CheckBox {name:"checkBoxForecast"; label: qsTr("Posterior distribution of one-step-ahead prediction")}
-			CheckBox {name:"checkBoxForecastError"; label: qsTr("Posterior distribution of one-step-ahead prediction error")}
+			CheckBox {name:"forecastErrorPlot"; label: qsTr("Posterior distribution of one-step-ahead prediction error")}
 		}
 
 		Group
@@ -359,7 +359,7 @@ Form
 			{
 				name: "predictionHorizon"
 				label: qsTr("Horizon")
-				enabled: covariates.count === 0 && factors.count === 0
+				enabled: covariates.count === 0 && fixedFactors.count === 0
 			}
 		}
 
@@ -368,11 +368,11 @@ Form
 			title: qsTr("Control chart")
 			CheckBox
 			{
-				name:"checkControlChart"; label: qsTr("Show control chart")
+				name:"controlChartPlot"; label: qsTr("Show control chart")
 
 				DoubleField {name: "controlPeriod"; label:qsTr("Control period end"); defaultValue: 100}
 				DoubleField {name: "controlSigma"; label:qsTr("σ threshold"); defaultValue: 2}
-				CheckBox{name: "checkControlProbPlot";label: qsTr("Show probalistic control plot")}
+				CheckBox{name: "probalisticControlPlot";label: qsTr("Show probalistic control plot")}
 
 			}
 
@@ -405,19 +405,19 @@ Form
 		//	values: [ "Gaussian", "Logit","Poisson","Student"]
 		//}
 
-		DoubleField { name:"mcmcDraws";		label: qsTr("Desired MCMC draws");	fieldWidth: 60; defaultValue: 2000}
+		DoubleField { name:"samples";		label: qsTr("Desired MCMC draws");	fieldWidth: 60; defaultValue: 2000}
 
 		DoubleField { name:"timeout";		label: qsTr("Timout in seconds");	fieldWidth: 60; defaultValue: 120}
 
 		RadioButtonGroup
 		{
-			name: "burnSpecification"
+			name: "burninMethod"
 			title: qsTr("Burn-in Specification")
 			radioButtonsOnSameRow: true
 			RadioButton
 			{
 				value: "burnSuggested"; label: qsTr("Automatic suggestion"); checked: true
-				DoubleField { name:"propBurnSuggested"
+				DoubleField { name:"automaticBurninProportion"
 											label: qsTr("Proportion")
 											fieldWidth: 60
 										 	defaultValue: 0.1
@@ -428,7 +428,7 @@ Form
 			RadioButton
 			{
 				value: "burnManual"; label: qsTr("Manual")
-				DoubleField { name:"numberBurnManual"
+				DoubleField { name:"manualBurninAmount"
 											label: qsTr("Number")
 											fieldWidth: 60
 											defaultValue: 0

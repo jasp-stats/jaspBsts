@@ -1,7 +1,7 @@
 Package: jaspBsts
 Type: Package
 Title: A module for JASP
-Version: 0.1.0
+Version: 0.16.4
 Date: 2020-10-15
 Author: JASP Team
 Website: jasp-stats.org
@@ -10,15 +10,17 @@ Description: This module offers analyses.
 License: GPL (>= 2)
 Encoding: UTF-8
 Imports:
+  Boom,
+  bsts,
+  ggplot2,
   jaspBase,
   jaspGraphs,
-  bsts,
-  Boom,
-  ggplot2,
   matrixStats,
   reshape2
 Suggests:
+  jaspTools,
   testthat
 Remotes:
   jasp-stats/jaspBase,
-  jasp-stats/jaspGraphs
+  jasp-stats/jaspGraphs,
+  jasp-stats/jaspTools

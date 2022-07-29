@@ -21,11 +21,11 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
 
 
   # check if results can be computed
-  ready <- (options$dependent != "" && any(options[c("checkboxAr","checkboxLocalLevel","checkboxLocalLinearTrend","checkboxSemiLocalLinearTrend")]==TRUE,length(options$seasonalities)>0))
+  ready <- (options$dependent != "" && any(options[c("autoregressiveComponent","localLevelComponent","localLinearTrendComponent","semiLocalLinearTrendComponent")]==TRUE,length(options$seasonalities)>0))
   # Init options: add variables to options to be used in the remainder of the analysis
 
-  # ensure the prediction horizon is 0 whenever there are covariates or factors
-  if (length(options[["covariates"]]) > 0L || length(options[["factors"]]) > 0L)
+  # ensure the prediction horizon is 0 whenever there are covariates or fixedFactors
+  if (length(options[["covariates"]]) > 0L || length(options[["fixedFactors"]]) > 0L)
     options[["predictionHorizon"]] <- 0L
 
   # read dataset
@@ -64,7 +64,7 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
   if(!ready) return()
   numericVariables  <- c(options$dependent,unlist(options$covariates))
   numericVariables  <- numericVariables[numericVariables != ""]
-  nominalVars       <- unlist(options$factors)
+  nominalVars       <- unlist(options$fixedFactors)
   timeVar           <- unlist(options$dates)
   timeVar           <- timeVar[timeVar != ""]
   dataset <- .readDataSetToEnd(columns.as.numeric  = numericVariables,
@@ -92,23 +92,23 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
 .bstsModelDependencies <- function() {
   return(c("dependent",
            "covariates",
-           "postSummaryTable",
-           "expectedModelSize",
-           "posteriorSummaryCoefCredibleIntervalValue",
+           "posteriorSummaryTable",
+           "expectedPredictors",
+           "posteriorSummaryCiValue",
            "distFam",
-           "mcmcDraws",
+           "samples",
            "modelTerms",
            "seasonalities",
-           "checkboxAr","lagSelectionMethod","noLags","maxNoLags","arSdPrior","arSigmaGuess","arSigmaWeight",
-           "checkboxLocalLevel",'localLevelSdPrior','localLevelSigmaGuess','localLevelSigmaWeight',
-           "checkboxLocalLinearTrend",'lltLevelPrior','lltLevelSigmaGuess','lltLevelSigmaWeight','lltSlopePrior',
+           "autoregressiveComponent","lagSelectionMethod","lags","maxLags","arSdPrior","arSigmaGuess","arSigmaWeight",
+           "localLevelComponent",'localLevelSdPrior','localLevelSigmaGuess','localLevelSigmaWeight',
+           "localLinearTrendComponent",'lltLevelPrior','lltLevelSigmaGuess','lltLevelSigmaWeight','lltSlopePrior',
            'lltSlopeSigmaGuess','lltSlopeSigmaWeight',
-           "checkboxSemiLocalLinearTrend",
-           "checkboxDynReg"
+           "semiLocalLinearTrendComponent",
+           "dynamicRegregressionComponent"
   ))
 }
 .bstsStatePlotDependencies <- function(){
-  return(c('checkboxPlotAggregatedStates','ciAggregatedStates',"actualValuesAggregatedStates",'checkboxPlotComponentStates'))
+  return(c('aggregatedStatesPlot','ciAggregatedStates',"observationsShown",'componentStatesPlot'))
 }
 
 .bstsPredictionDependencies <- function(){
@@ -117,7 +117,7 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
 
 
 .bstsControlDependencies <- function(){
-  return(c('checkControlChart',"controlPeriod","controlSigma","checkControlProbPlot"))
+  return(c('controlChartPlot',"controlPeriod","controlSigma","probalisticControlPlot"))
 }
 
 
@@ -156,37 +156,37 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
 .bstsResultsHelper <- function(dataset,options) {
 
   predictors = NULL
-  if (length(options$covariates)>0|length(options$factors) >0)
+  if (length(options$covariates)>0|length(options$fixedFactors) >0)
     predictors <- .bstsGetPredictors(options$modelTerms)
   formula = .bstsGetFormula(dependent=dataset[,options[["dependent"]]],predictors = predictors,options)
 
   ss   <- list()
   #AddAr
-  if(options$checkboxAr){
-    if(options$lagSelectionMethod == "manualAR")
-      ss <- bsts::AddAr(ss,y = dataset[,options[["dependent"]]],lags =options$noLags)
+  if(options$autoregressiveComponent){
+    if(options$lagSelectionMethod == "manual")
+      ss <- bsts::AddAr(ss,y = dataset[,options[["dependent"]]],lags =options$lags)
 
     if(options$lagSelectionMethod == "autoAR")
-      ss <- bsts::AddAutoAr(ss,y=dataset[,options[["dependent"]]],lags=options$maxNoLags)
+      ss <- bsts::AddAutoAr(ss,y=dataset[,options[["dependent"]]],lags=options$maxLags)
   }
 
   #Add local level Component
 
-  if(options$checkboxLocalLevel)
+  if(options$localLevelComponent)
     ss <- bsts::AddLocalLevel(ss,y=dataset[,options[["dependent"]]])
 
   # Add Local Linear trend component
 
-  if(options$checkboxLocalLinearTrend)
+  if(options$localLinearTrendComponent)
     ss <- bsts::AddLocalLinearTrend(ss,y=dataset[,options[["dependent"]]])
 
   # Add semi-local linear trend
 
-  if(options$checkboxSemiLocalLinearTrend)
+  if(options$semiLocalLinearTrendComponent)
     ss <- bsts::AddSemilocalLinearTrend(ss,y=dataset[,options[["dependent"]]])
 
 
-  if(options$checkboxDynReg & options$DynRegLags==0)
+  if(options$dynamicRegregressionComponent & options$dynamicRegregressionLags==0)
     ss <- bsts::AddDynamicRegression(ss,formula=formula,data=dataset)
 
 
@@ -213,10 +213,10 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
   model <- bsts::bsts(formula = formula,
                       data=dataset,
                       state.specification = ss,
-                      niter = options$mcmcDraws,
+                      niter = options$samples,
                       timestamps=NULL,
                       seed = options$seed,
-                      expected.model.size = options$expectedModelSize,
+                      expected.model.size = options$expectedPredictors,
                       model.options = bsts::BstsOptions(timeout.seconds = options$timeout )
   )
 
@@ -231,11 +231,11 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
 .bstsBurnHelper <- function(jaspResults,options) {
 
   bstsResults <- jaspResults[["bstsMainContainer"]][["bstsModelResults"]]$object
-  if(options$burnSpecification == "burnSuggested")
-    options$burn <- bsts::SuggestBurn(options$propBurnSuggested,bstsResults)
+  if(options$burninMethod == "burnSuggested")
+    options$burn <- bsts::SuggestBurn(options$automaticBurninProportion,bstsResults)
 
-  if(options$burnSpecification == "burnManual")
-    options$burn <- options$numberBurnManual
+  if(options$burninMethod == "burnManual")
+    options$burn <- options$manualBurninAmount
 
 
   return(options)
@@ -330,7 +330,7 @@ quantInv <- function(distr, value){
   bstsResults <- jaspResults[["bstsMainContainer"]][["bstsModelResults"]]$object
 
   bstsTable <- createJaspTable(title = gettext("Model Summary"))
-  bstsTable$dependOn(c("burnSpecification",'propBurnSuggested','numberBurnManual'))
+  bstsTable$dependOn(c("burninMethod",'automaticBurninProportion','manualBurninAmount'))
   bstsTable$position <- 1
 
   bstsTable$addColumnInfo(name="resSd",   title=gettext("Residual SD"),               type= "number")
@@ -338,8 +338,8 @@ quantInv <- function(distr, value){
   bstsTable$addColumnInfo(name="R2",      title =gettextf("R%s", "\u00B2"),           type= "number")
   bstsTable$addColumnInfo(name="relGof",  title=gettext("Harvey's goodness of fit"),  type= "number")
 
-  if (bstsResults$niter < options$mcmcDraws)
-    bstsTable$addFootnote(message=gettextf("Test: Only %1$s draws were sampled out of the desired %2$s. Additionally, %3$s MCMC draws out of %1$s are discarded as burn in.", bstsResults$niter, options$mcmcDraws, options$burn))
+  if (bstsResults$niter < options$samples)
+    bstsTable$addFootnote(message=gettextf("Test: Only %1$s draws were sampled out of the desired %2$s. Additionally, %3$s MCMC draws out of %1$s are discarded as burn in.", bstsResults$niter, options$samples, options$burn))
   else
     bstsTable$addFootnote(message=paste0(options$burn, " MCMC draws out of ", bstsResults$niter, " are discarded as burn in."))
 
@@ -369,15 +369,15 @@ quantInv <- function(distr, value){
 
 # table for regression coefficients"
 .bstsCreateCoefficientTable <- function(jaspResults,options,ready){
-  if(!is.null(jaspResults[["bstsMainContainer"]][["bstsCoefficientSummaryTable"]]) | !length(options$modelTerms) >0 | !ready | !options$postSummaryTable) return()
+  if(!is.null(jaspResults[["bstsMainContainer"]][["bstsCoefficientSummaryTable"]]) | !length(options$modelTerms) >0 | !ready | !options$posteriorSummaryTable) return()
 
 
   bstsResults <- jaspResults[["bstsMainContainer"]][["bstsModelResults"]]$object
   bstsCoefficientTable <- createJaspTable(title = gettext("Posterior Summary of Coefficients"))
-  bstsCoefficientTable$dependOn(c("postSummaryTable","showCoefMeanInc","posteriorSummaryCoefCredibleIntervalValue"))
+  bstsCoefficientTable$dependOn(c("posteriorSummaryTable","showCoefMeanInc","posteriorSummaryCiValue"))
   bstsCoefficientTable$position <- 2
 
-  overtitle <- gettextf("%s%% Credible Interval", format(100*options[["posteriorSummaryCoefCredibleIntervalValue"]], digits = 3))
+  overtitle <- gettextf("%s%% Credible Interval", format(100*options[["posteriorSummaryCiValue"]], digits = 3))
   bstsCoefficientTable$addColumnInfo(name = "coef",       title = gettext("Coefficients"),           type = "string")
   bstsCoefficientTable$addColumnInfo(name = "priorIncP",  title = gettext("P(incl)"),                type = "number")
   bstsCoefficientTable$addColumnInfo(name = "postIncP",   title = gettext("P(incl|data)"),           type = "number")
@@ -409,7 +409,7 @@ quantInv <- function(distr, value){
       return(quantile(beta,ci))
     return(0)
   }
-  ci <- options$posteriorSummaryCoefCredibleIntervalValue
+  ci <- options$posteriorSummaryCiValue
   res$lo_ci <- apply(bstsResults$coefficients, 2,condQuantile,((1- ci)/2))
   res$hi_ci <- apply(bstsResults$coefficients, 2,condQuantile,1-((1- ci)/2))
   res <- res[order(res$inc.prob,decreasing = TRUE),]
@@ -454,8 +454,8 @@ quantInv <- function(distr, value){
 
   bstsResults <- jaspResults[["bstsMainContainer"]][["bstsModelResults"]]$object
 
-  if(options$checkboxPlotAggregatedStates) .bstsAggregatedStatePlot(bstsStatePlots,bstsResults,dataset,options,ready)
-  if(options$checkboxPlotComponentStates)
+  if(options$aggregatedStatesPlot) .bstsAggregatedStatePlot(bstsStatePlots,bstsResults,dataset,options,ready)
+  if(options$componentStatesPlot)
     .bstsComponentStatePlot(bstsStatePlots,bstsResults,options,ready)
 
 
@@ -464,7 +464,7 @@ quantInv <- function(distr, value){
 }
 
 .bstsAggregatedStatePlot <- function(bstsStatePlots,bstsResults,dataset,options,ready) {
-  if (!ready | !options$checkboxPlotAggregatedStates) return()
+  if (!ready | !options$aggregatedStatesPlot) return()
 
 
   bstsAggregatedStatePlot <- createJaspPlot(title= gettext("Aggregated State"), height = 320, width = 480)
@@ -495,7 +495,7 @@ quantInv <- function(distr, value){
     ggplot2::geom_line(size=0.7)
 
 
-  if(options$actualValuesAggregatedStates)
+  if(options$observationsShown)
     p <- p + ggplot2::geom_point(ggplot2::aes(y=actualValues))
 
   p <- jaspGraphs::themeJasp(p)
@@ -586,10 +586,10 @@ quantInv <- function(distr, value){
   bstsResults <- jaspResults[["bstsMainContainer"]][["bstsModelResults"]]$object
 
 
-  if(options$checkControlChart)
+  if(options$controlChartPlot)
     .bstsFillControlPlotThreshold(bstsControlPlots,bstsResults,options,ready)
 
-  if(options$checkControlProbPlot)
+  if(options$probalisticControlPlot)
     .bstsFillControlPlotProbability(bstsControlPlots,bstsResults,options,ready)
 
 
@@ -732,8 +732,8 @@ quantInv <- function(distr, value){
 
   bstsResults <- jaspResults[["bstsMainContainer"]][["bstsModelResults"]]$object
 
-  if(options$checkBoxResidual) .bstsResidualPlot(bstsErrorPlots,bstsResults,options,ready)
-  if(options$checkBoxForecastError)
+  if(options$residualPlot) .bstsResidualPlot(bstsErrorPlots,bstsResults,options,ready)
+  if(options$forecastErrorPlot)
     .bstsForecastErrorPlot(bstsErrorPlots,bstsResults,options,ready)
 
 
@@ -743,7 +743,7 @@ quantInv <- function(distr, value){
 
 
 .bstsResidualPlot <- function(bstsErrorPlots,bstsResults,options,ready){
-  if (!ready | !options$checkBoxResidual) return()
+  if (!ready | !options$residualPlot) return()
 
 
   bstsResidualPlot <- createJaspPlot(title= gettext("Residual Plot"), height = 320, width = 480)
@@ -772,7 +772,7 @@ quantInv <- function(distr, value){
 }
 
 .bstsForecastErrorPlot <- function(bstsErrorPlots,bstsResults,options,ready){
-  if (!ready | !options$checkBoxForecastError) return()
+  if (!ready | !options$forecastErrorPlot) return()
 
 
   bstsForecastErrorPlot <- createJaspPlot(title= gettext("Forecast Error Plot"), height = 320, width = 480)

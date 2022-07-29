@@ -11,8 +11,8 @@ test_that("Model Summary table results match (AR - manual)", {
   skip_on_os(c("mac","linux"))
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
-  options$checkboxAr <- TRUE
-  options$mcmcDraws <- 10
+  options$autoregressiveComponent <- TRUE
+  options$samples <- 10
 
   set.seed(1)
   for (i in 1:6){
@@ -30,10 +30,10 @@ test_that("Model Summary table results match (AR - automatic)", {
   skip_on_os(c("mac","linux"))
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
-  options$checkboxAr <- TRUE
+  options$autoregressiveComponent <- TRUE
   options$lagSelectionMethod <- "autoAR"
-  options$maxNoLags <- 4
-  options$mcmcDraws <- 10
+  options$maxLags <- 4
+  options$samples <- 10
 
   set.seed(1)
   for (i in 1:6){
@@ -52,8 +52,8 @@ test_that("Model Summary table results match (local level)", {
   skip_on_os(c("mac","linux"))
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
-  options$checkboxLocalLevel <- TRUE
-  options$mcmcDraws <- 10
+  options$localLevelComponent <- TRUE
+  options$samples <- 10
 
   set.seed(1)
   for (i in 1:6){
@@ -72,8 +72,8 @@ test_that("Model Summary table results match (local linear trend)", {
   skip_on_os(c("mac","linux"))
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
-  options$checkboxLocalLinearTrend <- TRUE
-  options$mcmcDraws <- 10
+  options$localLinearTrendComponent <- TRUE
+  options$samples <- 10
 
   set.seed(1)
   for (i in 1:6){
@@ -91,8 +91,8 @@ test_that("Model Summary table results match (semi-local linear trend)", {
   skip_on_os(c("mac","linux"))
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
-  options$checkboxLocalLevel <- TRUE
-  options$mcmcDraws <- 10
+  options$localLevelComponent <- TRUE
+  options$samples <- 10
 
   set.seed(1)
   for (i in 1:6){
@@ -110,7 +110,7 @@ test_that("Model Summary table results match (seasonal)", {
   skip_on_os(c("mac","linux"))
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
-  options$checkboxLocalLevel <- TRUE
+  options$localLevelComponent <- TRUE
   options$seasonalities <- list(list(mu = 0,
                                      nSeasons = 2,
                                      name = "season",
@@ -119,7 +119,7 @@ test_that("Model Summary table results match (seasonal)", {
                                      sigma="",
                                      sigma.guess=""
   ))
-  options$mcmcDraws <- 10
+  options$samples <- 10
 
   set.seed(1)
   for (i in 1:6){
@@ -137,10 +137,10 @@ options <- jaspTools::analysisOptions("bayesianStateSpace")
 options$dependent <- "contNormal"
 options$covariates <- c("contcor1", "contcor2")
 options$dates <- "dateYear"
-options$postSummaryTable <- TRUE
-options$checkboxLocalLevel <- TRUE
-options$mcmcDraws <- 10
-options$expectedModelSize <- 3
+options$posteriorSummaryTable <- TRUE
+options$localLevelComponent <- TRUE
+options$samples <- 10
+options$expectedPredictors <- 3
 options$modelTerms <- list(list(components = "contcor1", isNuisance = FALSE), list(
   components = "contcor2", isNuisance = FALSE))
 set.seed(1)
@@ -180,18 +180,18 @@ test_that("Posterior Summary of Coefficients table results match (local level - 
 
 options <- jaspTools::analysisOptions("bayesianStateSpace")
 options$dependent <- "contNormal"
-options$factors <- c("facGender", "facExperim")
+options$fixedFactors <- c("facGender", "facExperim")
 options$dates <- "dateYear"
-options$postSummaryTable <- TRUE
-options$checkboxLocalLevel <- TRUE
-options$mcmcDraws <- 10
-options$expectedModelSize <- 3
+options$posteriorSummaryTable <- TRUE
+options$localLevelComponent <- TRUE
+options$samples <- 10
+options$expectedPredictors <- 3
 options$modelTerms <- list(list(components = "facGender", isNuisance = FALSE), list(
   components = "facExperim", isNuisance = FALSE))
 set.seed(1)
 
 
-test_that("Model Summary table results match (local level - factors)", {
+test_that("Model Summary table results match (local level - fixedFactors)", {
   skip_on_os(c("mac","linux"))
   for (i in 1:6){
     options$dates <- dateTimeVarNames[i]
@@ -205,7 +205,7 @@ test_that("Model Summary table results match (local level - factors)", {
 
 })
 
-test_that("Posterior Summary of Coefficients table results match (local level - factors)", {
+test_that("Posterior Summary of Coefficients table results match (local level - fixedFactors)", {
   skip_on_os(c("mac","linux"))
   for (i in 1:6){
     options$dates <- dateTimeVarNames[i]
@@ -222,12 +222,12 @@ test_that("Posterior Summary of Coefficients table results match (local level - 
 
 })
 
-options$checkboxPlotAggregatedStates <- TRUE
-options$checkboxPlotComponentStates <- TRUE
-options$checkBoxForecastError<- TRUE
-options$checkBoxResidual <- TRUE
-options$checkControlChart <- TRUE
-options$checkControlProbPlot <- TRUE
+options$aggregatedStatesPlot <- TRUE
+options$componentStatesPlot <- TRUE
+options$forecastErrorPlot<- TRUE
+options$residualPlot <- TRUE
+options$controlChartPlot <- TRUE
+options$probalisticControlPlot <- TRUE
 for (i in 1:6){
   options$dates <- dateTimeVarNames[i]
 
@@ -269,8 +269,8 @@ test_that("Prediction plot matches", {
   skip_on_os(c("mac","linux"))
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
-  options$mcmcDraws <- 10
-  options$checkboxLocalLevel <- TRUE
+  options$samples <- 10
+  options$localLevelComponent <- TRUE
   options$dates <- "dateYear"
   options$predictionHorizon <- 12
 
@@ -294,8 +294,8 @@ test_that("Prediction plot matches", {
     skip_on_os("windows")
     options <- jaspTools::analysisOptions("bayesianStateSpace")
     options$dependent <- "contNormal"
-    options$checkboxAr <- TRUE
-    options$mcmcDraws <- 10
+    options$autoregressiveComponent <- TRUE
+    options$samples <- 10
 
     set.seed(1)
     for (i in 1:6){
@@ -313,10 +313,10 @@ test_that("Prediction plot matches", {
     skip_on_os("windows")
     options <- jaspTools::analysisOptions("bayesianStateSpace")
     options$dependent <- "contNormal"
-    options$checkboxAr <- TRUE
+    options$autoregressiveComponent <- TRUE
     options$lagSelectionMethod <- "autoAR"
-    options$maxNoLags <- 4
-    options$mcmcDraws <- 10
+    options$maxLags <- 4
+    options$samples <- 10
 
     set.seed(1)
     for (i in 1:6){
@@ -335,8 +335,8 @@ test_that("Prediction plot matches", {
     skip_on_os("windows")
     options <- jaspTools::analysisOptions("bayesianStateSpace")
     options$dependent <- "contNormal"
-    options$checkboxLocalLevel <- TRUE
-    options$mcmcDraws <- 10
+    options$localLevelComponent <- TRUE
+    options$samples <- 10
 
     set.seed(1)
     for (i in 1:6){
@@ -355,8 +355,8 @@ test_that("Prediction plot matches", {
     skip_on_os("windows")
     options <- jaspTools::analysisOptions("bayesianStateSpace")
     options$dependent <- "contNormal"
-    options$checkboxLocalLinearTrend <- TRUE
-    options$mcmcDraws <- 10
+    options$localLinearTrendComponent <- TRUE
+    options$samples <- 10
 
     set.seed(1)
     for (i in 1:6){
@@ -374,8 +374,8 @@ test_that("Prediction plot matches", {
     skip_on_os("windows")
     options <- jaspTools::analysisOptions("bayesianStateSpace")
     options$dependent <- "contNormal"
-    options$checkboxLocalLevel <- TRUE
-    options$mcmcDraws <- 10
+    options$localLevelComponent <- TRUE
+    options$samples <- 10
 
     set.seed(1)
     for (i in 1:6){
@@ -393,7 +393,7 @@ test_that("Prediction plot matches", {
     skip_on_os("windows")
     options <- jaspTools::analysisOptions("bayesianStateSpace")
     options$dependent <- "contNormal"
-    options$checkboxLocalLevel <- TRUE
+    options$localLevelComponent <- TRUE
     options$seasonalities <- list(list(mu = 0,
                                        nSeasons = 2,
                                        name = "season",
@@ -402,7 +402,7 @@ test_that("Prediction plot matches", {
                                        sigma="",
                                        sigma.guess=""
     ))
-    options$mcmcDraws <- 10
+    options$samples <- 10
 
     set.seed(1)
     for (i in 1:6){
@@ -420,10 +420,10 @@ test_that("Prediction plot matches", {
   options$dependent <- "contNormal"
   options$covariates <- c("contcor1", "contcor2")
   options$dates <- "dateYear"
-  options$postSummaryTable <- TRUE
-  options$checkboxLocalLevel <- TRUE
-  options$mcmcDraws <- 10
-  options$expectedModelSize <- 3
+  options$posteriorSummaryTable <- TRUE
+  options$localLevelComponent <- TRUE
+  options$samples <- 10
+  options$expectedPredictors <- 3
   options$modelTerms <- list(list(components = "contcor1", isNuisance = FALSE), list(
     components = "contcor2", isNuisance = FALSE))
   set.seed(1)
@@ -463,18 +463,18 @@ test_that("Prediction plot matches", {
 
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
-  options$factors <- c("facGender", "facExperim")
+  options$fixedFactors <- c("facGender", "facExperim")
   options$dates <- "dateYear"
-  options$postSummaryTable <- TRUE
-  options$checkboxLocalLevel <- TRUE
-  options$mcmcDraws <- 10
-  options$expectedModelSize <- 3
+  options$posteriorSummaryTable <- TRUE
+  options$localLevelComponent <- TRUE
+  options$samples <- 10
+  options$expectedPredictors <- 3
   options$modelTerms <- list(list(components = "facGender", isNuisance = FALSE), list(
     components = "facExperim", isNuisance = FALSE))
   set.seed(1)
 
 
-  test_that("Model Summary table results match (local level - factors)", {
+  test_that("Model Summary table results match (local level - fixedFactors)", {
     skip_on_os("windows")
 
     for (i in 1:6){
@@ -489,7 +489,7 @@ test_that("Prediction plot matches", {
 
   })
 
-  test_that("Posterior Summary of Coefficients table results match (local level - factors)", {
+  test_that("Posterior Summary of Coefficients table results match (local level - fixedFactors)", {
     skip_on_os("windows")
     for (i in 1:6){
       options$dates <- dateTimeVarNames[i]
@@ -505,12 +505,12 @@ test_that("Prediction plot matches", {
 
   })
 
-  options$checkboxPlotAggregatedStates <- TRUE
-  options$checkboxPlotComponentStates <- TRUE
-  options$checkBoxForecastError<- TRUE
-  options$checkBoxResidual <- TRUE
-  options$checkControlChart <- TRUE
-  options$checkControlProbPlot <- TRUE
+  options$aggregatedStatesPlot <- TRUE
+  options$componentStatesPlot <- TRUE
+  options$forecastErrorPlot<- TRUE
+  options$residualPlot <- TRUE
+  options$controlChartPlot <- TRUE
+  options$probalisticControlPlot <- TRUE
   # the 3rd value in dateTimeVarNames causes errors when unit test performed on Github (day)
   # possibly due to different region settings on operating systems, removed for now
   for (i in c(1:2,4:6)){
@@ -554,8 +554,8 @@ test_that("Prediction plot matches", {
     skip_on_os("windows")
     options <- jaspTools::analysisOptions("bayesianStateSpace")
     options$dependent <- "contNormal"
-    options$mcmcDraws <- 10
-    options$checkboxLocalLevel <- TRUE
+    options$samples <- 10
+    options$localLevelComponent <- TRUE
     options$dates <- "dateYear"
     options$predictionHorizon <- 12
 
