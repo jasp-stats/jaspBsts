@@ -108,7 +108,7 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
   ))
 }
 .bstsStatePlotDependencies <- function(){
-  return(c('aggregatedStatesPlot','ciAggregatedStates',"aggregatedStatesPlotObservationsShown",'componentStatesPlot'))
+  return(c('aggregatedStatesPlot','aggregatedStatesPlotCiLevel',"aggregatedStatesPlotObservationsShown",'componentStatesPlot'))
 }
 
 .bstsPredictionDependencies <- function(){
@@ -480,8 +480,8 @@ quantInv <- function(distr, value){
 
 
 
-  ymin <- apply(state,2,quantile,probs= ((1- options$ciAggregatedStates)/2))
-  ymax <- apply(state,2,quantile,probs= 1-((1- options$ciAggregatedStates)/2))
+  ymin <- apply(state,2,quantile,probs= ((1- options$aggregatedStatesPlotCiLevel)/2))
+  ymax <- apply(state,2,quantile,probs= 1-((1- options$aggregatedStatesPlotCiLevel)/2))
 
   time <- options$time
 
@@ -751,8 +751,8 @@ quantInv <- function(distr, value){
   residuals <- bsts::residuals.bsts(bstsResults,options$burn)
 
   mean <- colMeans(residuals)
-  ymin <- apply(residuals,2,quantile,probs= ((1- options$ciAggregatedStates)/2))
-  ymax <- apply(residuals,2,quantile,probs= 1-((1- options$ciAggregatedStates)/2))
+  ymin <- apply(residuals,2,quantile,probs= ((1- options$aggregatedStatesPlotCiLevel)/2))
+  ymax <- apply(residuals,2,quantile,probs= 1-((1- options$aggregatedStatesPlotCiLevel)/2))
 
   time <- options$time
 
@@ -780,8 +780,8 @@ quantInv <- function(distr, value){
   errors <- bsts::bsts.prediction.errors(bstsResults,burn=options$burn)$in.sample
 
   mean <- colMeans(errors)
-  ymin <- apply(errors,2,quantile,probs= ((1- options$ciAggregatedStates)/2))
-  ymax <- apply(errors,2,quantile,probs= 1-((1- options$ciAggregatedStates)/2))
+  ymin <- apply(errors,2,quantile,probs= ((1- options$aggregatedStatesPlotCiLevel)/2))
+  ymax <- apply(errors,2,quantile,probs= 1-((1- options$aggregatedStatesPlotCiLevel)/2))
 
   time <- options$time
 

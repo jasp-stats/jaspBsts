@@ -63,6 +63,7 @@ Upgrades
 
 
 		ChangeRename	{ from: "checkboxPlotAggregatedStates";					to: "aggregatedStatesPlot"				}
+		ChangeRename	{ from: "ciAggregatedStates";							to: "aggregatedStatesPlotCiLevel"		}
 
 		ChangeRename	{ from: "actualValuesAggregatedStates";					to: "aggregatedStatesPlotObservationsShown"		}
 

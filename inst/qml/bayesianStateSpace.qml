@@ -309,7 +309,7 @@ Form
 
 				CIField
 				{
-					name: "ciAggregatedStates"
+					name: "aggregatedStatesPlotCiLevel"
 					label: qsTr("Credible interval")
 				}
 				CheckBox
