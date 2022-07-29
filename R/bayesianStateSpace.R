@@ -65,7 +65,7 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
   numericVariables  <- c(options$dependent,unlist(options$covariates))
   numericVariables  <- numericVariables[numericVariables != ""]
   nominalVars       <- unlist(options$fixedFactors)
-  timeVar           <- unlist(options$dates)
+  timeVar           <- unlist(options$time)
   timeVar           <- timeVar[timeVar != ""]
   dataset <- .readDataSetToEnd(columns.as.numeric  = numericVariables,
                                columns.as.factor = nominalVars,
@@ -94,7 +94,7 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
            "covariates",
            "posteriorSummaryTable",
            "expectedPredictors",
-           "posteriorSummaryCiValue",
+           "posteriorSummaryCiLevel",
            "distFam",
            "samples",
            "modelTerms",
@@ -108,7 +108,7 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
   ))
 }
 .bstsStatePlotDependencies <- function(){
-  return(c('aggregatedStatesPlot','ciAggregatedStates',"observationsShown",'componentStatesPlot'))
+  return(c('aggregatedStatesPlot','ciAggregatedStates',"aggregatedStatesPlotObservationsShown",'componentStatesPlot'))
 }
 
 .bstsPredictionDependencies <- function(){
@@ -166,7 +166,7 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
     if(options$lagSelectionMethod == "manual")
       ss <- bsts::AddAr(ss,y = dataset[,options[["dependent"]]],lags =options$lags)
 
-    if(options$lagSelectionMethod == "autoAR")
+    if(options$lagSelectionMethod == "auto")
       ss <- bsts::AddAutoAr(ss,y=dataset[,options[["dependent"]]],lags=options$maxLags)
   }
 
@@ -194,13 +194,13 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
 
     for (seas in options$seasonalities) {
 
-      sigma.prior <- if(seas$sigma.guess=="") NULL else{Boom::SdPrior(as.numeric(seas$sigma.guess),seas$sample.size)}
-      normal.prior <- if(seas$sigma=="") NULL else Boom::NormalPrior(seas$mu,as.numeric(seas$sigma))
+      normalPriorSd.prior <- if(seas$inverseGammaPriorSd=="") NULL else{Boom::SdPrior(as.numeric(seas$inverseGammaPriorSd),seas$inverseGammaPriorN)}
+      normal.prior <- if(seas$normalPriorSd=="") NULL else Boom::NormalPrior(seas$normalPriorMean,as.numeric(seas$normalPriorSd))
       ss <- bsts::AddSeasonal(ss,
                               y = dataset[,options[["dependent"]]],
-                              nseasons = seas$nSeason,
-                              season.duration = seas$seasonDuration,
-                              sigma.prior = sigma.prior,
+                              nseasons = seas$number,
+                              season.duration = seas$duration,
+                              normalPriorSd.prior = normalPriorSd.prior,
                               initial.state.prior = normal.prior
       )
       if(!seas$name == "")
@@ -246,8 +246,8 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
   bstsResults <- jaspResults[["bstsMainContainer"]][["bstsModelResults"]]$object
 
   actualValues <- as.numeric(bstsResults$original.series)
-  if(options$dates != "")
-    options$time <- as.POSIXct(dataset[,options[["dates"]]], tz = "UTC")
+  if(options$time != "")
+    options$time <- as.POSIXct(dataset[,options[["time"]]], tz = "UTC")
   else
     options$time <- 1:length(actualValues)
 
@@ -374,10 +374,10 @@ quantInv <- function(distr, value){
 
   bstsResults <- jaspResults[["bstsMainContainer"]][["bstsModelResults"]]$object
   bstsCoefficientTable <- createJaspTable(title = gettext("Posterior Summary of Coefficients"))
-  bstsCoefficientTable$dependOn(c("posteriorSummaryTable","showCoefMeanInc","posteriorSummaryCiValue"))
+  bstsCoefficientTable$dependOn(c("posteriorSummaryTable","showCoefMeanInc","posteriorSummaryCiLevel"))
   bstsCoefficientTable$position <- 2
 
-  overtitle <- gettextf("%s%% Credible Interval", format(100*options[["posteriorSummaryCiValue"]], digits = 3))
+  overtitle <- gettextf("%s%% Credible Interval", format(100*options[["posteriorSummaryCiLevel"]], digits = 3))
   bstsCoefficientTable$addColumnInfo(name = "coef",       title = gettext("Coefficients"),           type = "string")
   bstsCoefficientTable$addColumnInfo(name = "priorIncP",  title = gettext("P(incl)"),                type = "number")
   bstsCoefficientTable$addColumnInfo(name = "postIncP",   title = gettext("P(incl|data)"),           type = "number")
@@ -409,7 +409,7 @@ quantInv <- function(distr, value){
       return(quantile(beta,ci))
     return(0)
   }
-  ci <- options$posteriorSummaryCiValue
+  ci <- options$posteriorSummaryCiLevel
   res$lo_ci <- apply(bstsResults$coefficients, 2,condQuantile,((1- ci)/2))
   res$hi_ci <- apply(bstsResults$coefficients, 2,condQuantile,1-((1- ci)/2))
   res <- res[order(res$inc.prob,decreasing = TRUE),]
@@ -495,7 +495,7 @@ quantInv <- function(distr, value){
     ggplot2::geom_line(size=0.7)
 
 
-  if(options$observationsShown)
+  if(options$aggregatedStatesPlotObservationsShown)
     p <- p + ggplot2::geom_point(ggplot2::aes(y=actualValues))
 
   p <- jaspGraphs::themeJasp(p)
@@ -641,7 +641,7 @@ quantInv <- function(distr, value){
     ggplot2::geom_hline(yintercept=ul_state, linetype="dashed", color = "red") +
     ggplot2::geom_hline(yintercept=ll_state, linetype="dashed", color = "red")
 
-  if(options$dates !="")
+  if(options$time !="")
     time_date <- "date"
   else
     time_date <- "time point"

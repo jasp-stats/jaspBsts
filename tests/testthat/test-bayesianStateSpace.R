@@ -16,7 +16,7 @@ test_that("Model Summary table results match (AR - manual)", {
 
   set.seed(1)
   for (i in 1:6){
-    options$dates <- dateTimeVarNames[i]
+    options$time <- dateTimeVarNames[i]
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
     jaspTools::expect_equal_tables(table,
@@ -31,13 +31,13 @@ test_that("Model Summary table results match (AR - automatic)", {
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
   options$autoregressiveComponent <- TRUE
-  options$lagSelectionMethod <- "autoAR"
+  options$lagSelectionMethod <- "auto"
   options$maxLags <- 4
   options$samples <- 10
 
   set.seed(1)
   for (i in 1:6){
-    options$dates <- dateTimeVarNames[i]
+    options$time <- dateTimeVarNames[i]
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
     jaspTools::expect_equal_tables(table,
@@ -57,7 +57,7 @@ test_that("Model Summary table results match (local level)", {
 
   set.seed(1)
   for (i in 1:6){
-    options$dates <- dateTimeVarNames[i]
+    options$time <- dateTimeVarNames[i]
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
     jaspTools::expect_equal_tables(table,
@@ -77,7 +77,7 @@ test_that("Model Summary table results match (local linear trend)", {
 
   set.seed(1)
   for (i in 1:6){
-    options$dates <- dateTimeVarNames[i]
+    options$time <- dateTimeVarNames[i]
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
     jaspTools::expect_equal_tables(table,
@@ -96,7 +96,7 @@ test_that("Model Summary table results match (semi-local linear trend)", {
 
   set.seed(1)
   for (i in 1:6){
-    options$dates <- dateTimeVarNames[i]
+    options$time <- dateTimeVarNames[i]
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
     jaspTools::expect_equal_tables(table,
@@ -111,19 +111,19 @@ test_that("Model Summary table results match (seasonal)", {
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
   options$localLevelComponent <- TRUE
-  options$seasonalities <- list(list(mu = 0,
-                                     nSeasons = 2,
+  options$seasonalities <- list(list(normalPriorMean = 0,
+                                     numbers = 2,
                                      name = "season",
-                                     sample.size = 0.01,
-                                     seasonDuration = 1,
-                                     sigma="",
-                                     sigma.guess=""
+                                     inverseGammaPriorN = 0.01,
+                                     duration = 1,
+                                     normalPriorSd="",
+                                     inverseGammaPriorSd=""
   ))
   options$samples <- 10
 
   set.seed(1)
   for (i in 1:6){
-    options$dates <- dateTimeVarNames[i]
+    options$time <- dateTimeVarNames[i]
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
     jaspTools::expect_equal_tables(table,
@@ -136,7 +136,7 @@ test_that("Model Summary table results match (seasonal)", {
 options <- jaspTools::analysisOptions("bayesianStateSpace")
 options$dependent <- "contNormal"
 options$covariates <- c("contcor1", "contcor2")
-options$dates <- "dateYear"
+options$time <- "dateYear"
 options$posteriorSummaryTable <- TRUE
 options$localLevelComponent <- TRUE
 options$samples <- 10
@@ -150,7 +150,7 @@ test_that("Model Summary table results match (local level - covariates)", {
   skip_on_os(c("mac","linux"))
 
   for (i in 1:6){
-    options$dates <- dateTimeVarNames[i]
+    options$time <- dateTimeVarNames[i]
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
 
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
@@ -164,7 +164,7 @@ test_that("Model Summary table results match (local level - covariates)", {
 test_that("Posterior Summary of Coefficients table results match (local level - covariates)", {
   skip_on_os(c("mac","linux"))
   for (i in 1:6){
-    options$dates <- dateTimeVarNames[i]
+    options$time <- dateTimeVarNames[i]
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsCoefficientSummaryTable"]][["data"]]
     jaspTools::expect_equal_tables(table,
@@ -181,7 +181,7 @@ test_that("Posterior Summary of Coefficients table results match (local level - 
 options <- jaspTools::analysisOptions("bayesianStateSpace")
 options$dependent <- "contNormal"
 options$fixedFactors <- c("facGender", "facExperim")
-options$dates <- "dateYear"
+options$time <- "dateYear"
 options$posteriorSummaryTable <- TRUE
 options$localLevelComponent <- TRUE
 options$samples <- 10
@@ -194,7 +194,7 @@ set.seed(1)
 test_that("Model Summary table results match (local level - fixedFactors)", {
   skip_on_os(c("mac","linux"))
   for (i in 1:6){
-    options$dates <- dateTimeVarNames[i]
+    options$time <- dateTimeVarNames[i]
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
 
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
@@ -208,7 +208,7 @@ test_that("Model Summary table results match (local level - fixedFactors)", {
 test_that("Posterior Summary of Coefficients table results match (local level - fixedFactors)", {
   skip_on_os(c("mac","linux"))
   for (i in 1:6){
-    options$dates <- dateTimeVarNames[i]
+    options$time <- dateTimeVarNames[i]
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsCoefficientSummaryTable"]][["data"]]
     jaspTools::expect_equal_tables(table,
@@ -229,7 +229,7 @@ options$residualPlot <- TRUE
 options$controlChartPlot <- TRUE
 options$probalisticControlPlot <- TRUE
 for (i in 1:6){
-  options$dates <- dateTimeVarNames[i]
+  options$time <- dateTimeVarNames[i]
 
   results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
 
@@ -271,7 +271,7 @@ test_that("Prediction plot matches", {
   options$dependent <- "contNormal"
   options$samples <- 10
   options$localLevelComponent <- TRUE
-  options$dates <- "dateYear"
+  options$time <- "dateYear"
   options$predictionHorizon <- 12
 
 
@@ -299,7 +299,7 @@ test_that("Prediction plot matches", {
 
     set.seed(1)
     for (i in 1:6){
-      options$dates <- dateTimeVarNames[i]
+      options$time <- dateTimeVarNames[i]
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
       jaspTools::expect_equal_tables(table,
@@ -314,13 +314,13 @@ test_that("Prediction plot matches", {
     options <- jaspTools::analysisOptions("bayesianStateSpace")
     options$dependent <- "contNormal"
     options$autoregressiveComponent <- TRUE
-    options$lagSelectionMethod <- "autoAR"
+    options$lagSelectionMethod <- "auto"
     options$maxLags <- 4
     options$samples <- 10
 
     set.seed(1)
     for (i in 1:6){
-      options$dates <- dateTimeVarNames[i]
+      options$time <- dateTimeVarNames[i]
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
       jaspTools::expect_equal_tables(table,
@@ -340,7 +340,7 @@ test_that("Prediction plot matches", {
 
     set.seed(1)
     for (i in 1:6){
-      options$dates <- dateTimeVarNames[i]
+      options$time <- dateTimeVarNames[i]
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
       jaspTools::expect_equal_tables(table,
@@ -360,7 +360,7 @@ test_that("Prediction plot matches", {
 
     set.seed(1)
     for (i in 1:6){
-      options$dates <- dateTimeVarNames[i]
+      options$time <- dateTimeVarNames[i]
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
       jaspTools::expect_equal_tables(table,
@@ -379,7 +379,7 @@ test_that("Prediction plot matches", {
 
     set.seed(1)
     for (i in 1:6){
-      options$dates <- dateTimeVarNames[i]
+      options$time <- dateTimeVarNames[i]
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
       jaspTools::expect_equal_tables(table,
@@ -394,19 +394,19 @@ test_that("Prediction plot matches", {
     options <- jaspTools::analysisOptions("bayesianStateSpace")
     options$dependent <- "contNormal"
     options$localLevelComponent <- TRUE
-    options$seasonalities <- list(list(mu = 0,
-                                       nSeasons = 2,
+    options$seasonalities <- list(list(normalPriorMean = 0,
+                                       numbers = 2,
                                        name = "season",
-                                       sample.size = 0.01,
-                                       seasonDuration = 1,
-                                       sigma="",
-                                       sigma.guess=""
+                                       inverseGammaPriorN = 0.01,
+                                       duration = 1,
+                                       normalPriorSd="",
+                                       inverseGammaPriorSd=""
     ))
     options$samples <- 10
 
     set.seed(1)
     for (i in 1:6){
-      options$dates <- dateTimeVarNames[i]
+      options$time <- dateTimeVarNames[i]
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
       jaspTools::expect_equal_tables(table,
@@ -419,7 +419,7 @@ test_that("Prediction plot matches", {
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
   options$covariates <- c("contcor1", "contcor2")
-  options$dates <- "dateYear"
+  options$time <- "dateYear"
   options$posteriorSummaryTable <- TRUE
   options$localLevelComponent <- TRUE
   options$samples <- 10
@@ -433,7 +433,7 @@ test_that("Prediction plot matches", {
     skip_on_os("windows")
 
     for (i in 1:6){
-      options$dates <- dateTimeVarNames[i]
+      options$time <- dateTimeVarNames[i]
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
 
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
@@ -447,7 +447,7 @@ test_that("Prediction plot matches", {
   test_that("Posterior Summary of Coefficients table results match (local level - covariates)", {
     skip_on_os("windows")
     for (i in 1:6){
-      options$dates <- dateTimeVarNames[i]
+      options$time <- dateTimeVarNames[i]
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsCoefficientSummaryTable"]][["data"]]
       jaspTools::expect_equal_tables(table,
@@ -464,7 +464,7 @@ test_that("Prediction plot matches", {
   options <- jaspTools::analysisOptions("bayesianStateSpace")
   options$dependent <- "contNormal"
   options$fixedFactors <- c("facGender", "facExperim")
-  options$dates <- "dateYear"
+  options$time <- "dateYear"
   options$posteriorSummaryTable <- TRUE
   options$localLevelComponent <- TRUE
   options$samples <- 10
@@ -478,7 +478,7 @@ test_that("Prediction plot matches", {
     skip_on_os("windows")
 
     for (i in 1:6){
-      options$dates <- dateTimeVarNames[i]
+      options$time <- dateTimeVarNames[i]
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
 
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsModelSummaryTable"]][["data"]]
@@ -492,7 +492,7 @@ test_that("Prediction plot matches", {
   test_that("Posterior Summary of Coefficients table results match (local level - fixedFactors)", {
     skip_on_os("windows")
     for (i in 1:6){
-      options$dates <- dateTimeVarNames[i]
+      options$time <- dateTimeVarNames[i]
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsCoefficientSummaryTable"]][["data"]]
       jaspTools::expect_equal_tables(table,
@@ -514,7 +514,7 @@ test_that("Prediction plot matches", {
   # the 3rd value in dateTimeVarNames causes errors when unit test performed on Github (day)
   # possibly due to different region settings on operating systems, removed for now
   for (i in c(1:2,4:6)){
-    options$dates <- dateTimeVarNames[i]
+    options$time <- dateTimeVarNames[i]
 
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
 
@@ -556,7 +556,7 @@ test_that("Prediction plot matches", {
     options$dependent <- "contNormal"
     options$samples <- 10
     options$localLevelComponent <- TRUE
-    options$dates <- "dateYear"
+    options$time <- "dateYear"
     options$predictionHorizon <- 12
 
 

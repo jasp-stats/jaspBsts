@@ -10,8 +10,9 @@ Upgrades
 		toVersion:		"0.16.4"
 
 		ChangeRename	{ from: "factors";										to: "fixedFactors"						}
+		ChangeRename	{ from: "dates";										to: "time"								}
 		ChangeRename	{ from: "postSummaryTable";								to: "posteriorSummaryTable"				}
-		ChangeRename	{ from: "posteriorSummaryCoefCredibleIntervalValue";	to: "posteriorSummaryCiValue"			}
+		ChangeRename	{ from: "posteriorSummaryCoefCredibleIntervalValue";	to: "posteriorSummaryCiLevel"			}
 		ChangeRename	{ from: "expectedModelSize";							to: "expectedPredictors"				}
 
 		ChangeRename	{ from: "checkboxAr";									to: "autoregressiveComponent"			}
@@ -63,7 +64,7 @@ Upgrades
 
 		ChangeRename	{ from: "checkboxPlotAggregatedStates";					to: "aggregatedStatesPlot"				}
 
-		ChangeRename	{ from: "actualValuesAggregatedStates";					to: "observationsShown"					}
+		ChangeRename	{ from: "actualValuesAggregatedStates";					to: "aggregatedStatesPlotObservationsShown"		}
 
 		ChangeRename	{ from: "checkboxPlotComponentStates";					to: "componentStatesPlot"				}
 

@@ -13,7 +13,7 @@ Form
 		AssignedVariablesList	{ name: "dependent";		title: qsTr("Dependent Variable");	suggestedColumns: ["scale"];	singleVariable: true}
 		AssignedVariablesList	{ name: "covariates";		title: qsTr("Covariates");			suggestedColumns: ["scale"];	allowedColumns: ["scale"];	id: covariates		}
 		AssignedVariablesList 	{ name: "fixedFactors";		title: qsTr("fixedFactors");		allowedColumns: ["ordinal", "nominal", "nominalText"];		id: fixedFactors	}
-		AssignedVariablesList	{ name: "dates";			title: qsTr("Time");				suggestedColumns: ["nominal"];	singleVariable: true		}
+		AssignedVariablesList	{ name: "time";			title: qsTr("Time");				suggestedColumns: ["nominal"];	singleVariable: true		}
 	}
 
 	columns: 2
@@ -29,7 +29,7 @@ Form
 		}
 		CIField
 		{
-			name: "posteriorSummaryCiValue"
+			name: "posteriorSummaryCiLevel"
 			label: qsTr("Credible interval")
 			enabled: posteriorSummaryTable.checked
 		}
@@ -94,7 +94,7 @@ Form
 				}
 				RadioButton
 				{
-					value: "autoAR"; label: qsTr("Automatic")
+					value: "auto"; label: qsTr("Automatic")
 					columns: 1
 					DoubleField { name: "maxLags";	label: qsTr("Maximal lags");	fieldWidth: 40; 	defaultValue: 1;}
 				}
@@ -220,7 +220,7 @@ Form
 
 							DoubleField
 							{
-								name: "nSeason"
+								name: "number"
 								defaultValue: 2
 								min: 2
 							}
@@ -232,7 +232,7 @@ Form
 
 							DoubleField
 							{
-								name: "seasonDuration"
+								name: "duration"
 								defaultValue: 1
 							}
 						}
@@ -243,7 +243,7 @@ Form
 
 							TextField
 							{
-								name: "sigma.guess"
+								name: "inverseGammaPriorSd"
 								label: "σ"
 								fieldWidth: 60 * preferencesModel.uiScale
 								placeholderText: ".01 * sdy"
@@ -251,7 +251,7 @@ Form
 							}
 							DoubleField
 							{
-								name: "sample.size"
+								name: "inverseGammaPriorN"
 								label: "n"
 								defaultValue: 0.01
 							}
@@ -263,7 +263,7 @@ Form
 
 							DoubleField
 							{
-								name: "mu"
+								name: "normalPriorMean"
 								label: "μ"
 								defaultValue: 0
 
@@ -271,7 +271,7 @@ Form
 							}
 							TextField
 							{
-								name: "sigma"
+								name: "normalPriorSd"
 								label:"σ²"
 								placeholderText: "sdy"
 								fieldWidth: 40 * preferencesModel.uiScale
@@ -314,7 +314,7 @@ Form
 				}
 				CheckBox
 				{
-					name: "observationsShown"
+					name: "aggregatedStatesPlotObservationsShown"
 					label: qsTr("Show observations")
 				}
 
