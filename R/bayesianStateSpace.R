@@ -200,7 +200,7 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
                               y = dataset[,options[["dependent"]]],
                               nseasons = seas$number,
                               season.duration = seas$duration,
-                              normalPriorSd.prior = normalPriorSd.prior,
+                              sigma.prior = normalPriorSd.prior,
                               initial.state.prior = normal.prior
       )
       if(!seas$name == "")
