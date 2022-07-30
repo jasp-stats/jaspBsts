@@ -246,6 +246,7 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
   bstsResults <- jaspResults[["bstsMainContainer"]][["bstsModelResults"]]$object
 
   actualValues <- as.numeric(bstsResults$original.series)
+  options$time0 <- options$time
   if(options$time != "")
     options$time <- as.POSIXct(dataset[,options[["time"]]], tz = "UTC")
   else
@@ -641,7 +642,7 @@ quantInv <- function(distr, value){
     ggplot2::geom_hline(yintercept=ul_state, linetype="dashed", color = "red") +
     ggplot2::geom_hline(yintercept=ll_state, linetype="dashed", color = "red")
 
-  if(options$time !="")
+  if(options$time0 !="")
     time_date <- "date"
   else
     time_date <- "time point"
