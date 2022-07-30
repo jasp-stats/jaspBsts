@@ -1,4 +1,10 @@
 
+# NOTE: the tests assume an English locale, otherwise things with dates fail
+oldLocale <- Sys.getlocale("LC_TIME")
+if (oldLocale != "en_US.UTF-8") {
+  Sys.setlocale("LC_TIME", "en_US.UTF-8")
+  on.exit(Sys.setlocale("LC_TIME", oldLocale))
+}
 
 os <- Sys.info()[['sysname']]
 
