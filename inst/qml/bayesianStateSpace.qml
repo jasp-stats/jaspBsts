@@ -416,7 +416,7 @@ Form
 			radioButtonsOnSameRow: true
 			RadioButton
 			{
-				value: "burnSuggested"; label: qsTr("Automatic suggestion"); checked: true
+				value: "auto"; label: qsTr("Automatic suggestion"); checked: true
 				DoubleField { name:"automaticBurninProportion"
 											label: qsTr("Proportion")
 											fieldWidth: 60
@@ -427,7 +427,7 @@ Form
 			}
 			RadioButton
 			{
-				value: "burnManual"; label: qsTr("Manual")
+				value: "manual"; label: qsTr("Manual")
 				DoubleField { name:"manualBurninAmount"
 											label: qsTr("Number")
 											fieldWidth: 60

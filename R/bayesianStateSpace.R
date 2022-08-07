@@ -231,10 +231,10 @@ bayesianStateSpace <- function(jaspResults, dataset, options) {
 .bstsBurnHelper <- function(jaspResults,options) {
 
   bstsResults <- jaspResults[["bstsMainContainer"]][["bstsModelResults"]]$object
-  if(options$burninMethod == "burnSuggested")
+  if(options$burninMethod == "auto")
     options$burn <- bsts::SuggestBurn(options$automaticBurninProportion,bstsResults)
 
-  if(options$burninMethod == "burnManual")
+  if(options$burninMethod == "manual")
     options$burn <- options$manualBurninAmount
 
 

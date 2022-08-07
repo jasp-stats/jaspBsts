@@ -46,7 +46,7 @@ Upgrades
 			name: "seasonalities"
 			jsFunction: function(options)
 			{
-				options["seasonalities"] = options["seasonalities"].forEach(item=>{
+				return options["seasonalities"].map(item=>{
 					item["number"]					= item["nSeason"];
 					item["duration"]				= item["seasonDuration"];
 
@@ -82,12 +82,12 @@ Upgrades
 
 		ChangeJS
 		{
-			name: "lagSelectionMethod"
+			name: "burninMethod"
 			jsFunction: function(options)
 			{
-				switch(options["lagSelectionMethod"])
+				switch(options["burninMethod"])
 				{
-					case "numberBurnManual":		return "manual";
+					case "burnManual":				return "manual";
 					case "burnSuggested":			return "auto";
 				}
 			}
