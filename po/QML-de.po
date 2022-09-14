@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-09-14 07:20+0000\n"
+"PO-Revision-Date: 2022-09-15 08:19+0000\n"
 "Last-Translator: Thomas Langkamp <thomas.lassdiesonnerein@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/jasp/jaspbsts-qml/"
 "de/>\n"
@@ -112,7 +112,7 @@ msgstr "Name"
 
 msgctxt "bayesianStateSpace|"
 msgid "Number"
-msgstr ""
+msgstr "Zahl"
 
 msgctxt "bayesianStateSpace|"
 msgid "Duration"
@@ -136,7 +136,7 @@ msgstr "Zustandsdiagramme"
 
 msgctxt "bayesianStateSpace|"
 msgid "Aggregated state contribution"
-msgstr ""
+msgstr "Beitrag des zusammengefassten Zustands"
 
 msgctxt "bayesianStateSpace|"
 msgid "Show observations"
@@ -144,7 +144,7 @@ msgstr "Beobachtungen anzeigen"
 
 msgctxt "bayesianStateSpace|"
 msgid "Component state contribution"
-msgstr ""
+msgstr "Beitrag des Komponenten-Zustands"
 
 msgctxt "bayesianStateSpace|"
 msgid "Residuals"
@@ -172,7 +172,7 @@ msgstr "Kontrolldiagramm"
 
 msgctxt "bayesianStateSpace|"
 msgid "Show control chart"
-msgstr "Kontrolldiagramm"
+msgstr "Kontrolldiagramm anzeigen"
 
 msgctxt "bayesianStateSpace|"
 msgid "Advanced Options"
@@ -196,11 +196,11 @@ msgstr "Erwartete Prädiktoren"
 
 msgctxt "bayesianStateSpace|"
 msgid "Lag of coefficients"
-msgstr ""
+msgstr "Verzögerung der Koeffizienten"
 
 msgctxt "bayesianStateSpace|"
 msgid "Control period end"
-msgstr ""
+msgstr "Ende des Kontrollzeitraums"
 
 msgctxt "bayesianStateSpace|"
 msgid "σ threshold"
@@ -208,7 +208,7 @@ msgstr "σ Schwellwert"
 
 msgctxt "bayesianStateSpace|"
 msgid "Show probalistic control plot"
-msgstr ""
+msgstr "Probalistisches Kontrolldiagramm anzeigen"
 
 msgctxt "bayesianStateSpace|"
 msgid "Desired MCMC draws"
@@ -218,7 +218,6 @@ msgctxt "bayesianStateSpace|"
 msgid "Timout in seconds"
 msgstr "Zeitüberschreitung in Sekunden"
 
-#, fuzzy
 msgctxt "bayesianStateSpace|"
 msgid "Proportion"
 msgstr "Anteil"
@@ -229,4 +228,4 @@ msgstr "Startwert für Zufallszahlen"
 
 msgctxt "bayesianStateSpace|"
 msgid "fixedFactors"
-msgstr ""
+msgstr "Feste Faktoren"
