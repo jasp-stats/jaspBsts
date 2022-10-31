@@ -18,7 +18,7 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Dependent Variable"
-msgstr ""
+msgstr "依變數"
 
 msgctxt "bayesianStateSpace|"
 msgid "Covariates"
