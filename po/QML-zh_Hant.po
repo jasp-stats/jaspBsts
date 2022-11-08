@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-08 09:33+0000\n"
+"PO-Revision-Date: 2022-11-09 04:42+0000\n"
 "Last-Translator: Changya Hu <changyahu@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "jasp/jaspbsts-qml/zh_Hant/>\n"
@@ -137,7 +137,7 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Plots"
-msgstr ""
+msgstr "圖"
 
 msgctxt "bayesianStateSpace|"
 msgid "State Plots"
