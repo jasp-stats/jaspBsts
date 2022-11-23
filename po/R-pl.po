@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspBsts 0.17.0\n"
 "POT-Creation-Date: 2022-10-08 03:15\n"
-"PO-Revision-Date: 2022-11-14 06:44+0000\n"
+"PO-Revision-Date: 2022-11-24 17:48+0000\n"
 "Last-Translator: Tomasz Misiuro <tomaszmisiuro@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/jasp/jaspbsts-r/"
 "pl/>\n"
@@ -46,7 +46,6 @@ msgstr "%s%% Przedział wiarygodności"
 msgid "Coefficients"
 msgstr "Współczynniki"
 
-#, fuzzy
 msgid "P(incl)"
 msgstr "P(zawiera)"
 
