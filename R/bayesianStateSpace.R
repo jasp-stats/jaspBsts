@@ -17,7 +17,7 @@
 
 # Main function ----
 
-bayesianStateSpace <- function(jaspResults, dataset, options) {
+bayesianStateSpaceInternal <- function(jaspResults, dataset, options) {
 
 
   # check if results can be computed
