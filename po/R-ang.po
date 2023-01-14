@@ -1,0 +1,89 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: jaspBsts 0.17.0\n"
+"POT-Creation-Date: 2022-11-28 15:52\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ang\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Unknown value provided for modelType, possible values: `alternative`, `null`"
+msgstr ""
+
+msgid "Model Summary"
+msgstr ""
+
+msgid "Residual SD"
+msgstr ""
+
+msgid "Prediction SD"
+msgstr ""
+
+msgid "R%s"
+msgstr ""
+
+msgid "Harvey's goodness of fit"
+msgstr ""
+
+msgid "Test: Only %1$s draws were sampled out of the desired %2$s. Additionally, %3$s MCMC draws out of %1$s are discarded as burn in."
+msgstr ""
+
+msgid "Posterior Summary of Coefficients"
+msgstr ""
+
+msgid "%s%% Credible Interval"
+msgstr ""
+
+msgid "Coefficients"
+msgstr ""
+
+msgid "P(incl)"
+msgstr ""
+
+msgid "P(incl|data)"
+msgstr ""
+
+msgid "BF<sub>inclusion</sub>"
+msgstr ""
+
+msgid "Mean"
+msgstr ""
+
+msgid "SD"
+msgstr ""
+
+msgid "Mean<sub>inclusion</sub>"
+msgstr ""
+
+msgid "SD<sub>inclusion</sub>"
+msgstr ""
+
+msgid "Lower"
+msgstr ""
+
+msgid "Upper"
+msgstr ""
+
+msgid "State Plots"
+msgstr ""
+
+msgid "Aggregated State"
+msgstr ""
+
+msgid "Component States"
+msgstr ""
+
+msgid "Control Plots"
+msgstr ""
+
+msgid "Error Plots"
+msgstr ""
+
+msgid "Residual Plot"
+msgstr ""
+
+msgid "Forecast Error Plot"
+msgstr ""
