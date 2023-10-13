@@ -2,94 +2,101 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspBsts 0.18.1\n"
 "POT-Creation-Date: 2023-09-30 02:38\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-10-13 19:33+0000\n"
+"Last-Translator: ecadrian <ecadrian@hotmail.com>\n"
+"Language-Team: Galician <https://hosted.weblate.org/projects/jasp/jaspbsts-r/"
+"gl/>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 msgid "Unknown value provided for modelType, possible values: `alternative`, `null`"
 msgstr ""
+"Proporcionouse un valor descoñecido para modelType; posibles valores: "
+"`alternativo`, `nulo`"
 
 msgid "Model Summary"
-msgstr ""
+msgstr "Resumo do Modelo"
 
 msgid "Residual SD"
-msgstr ""
+msgstr "DP dos erros"
 
 msgid "Prediction SD"
-msgstr ""
+msgstr "DP da predición"
 
 msgid "R%s"
-msgstr ""
+msgstr "R%s"
 
 msgid "Harvey's goodness of fit"
-msgstr ""
+msgstr "Bondade de axuste de Harvey"
 
 msgid "Only %1$s draws were sampled out of the desired %2$s. Additionally, %3$s MCMC draws out of %1$s are discarded as burn in."
 msgstr ""
+"Só se obtiveron %1$s extraccións das %2$s desexadas. Amais, %3$s extraccións "
+"MCMC de %1$s descártanse polo quecemento."
 
 msgid "MCMC draws out of"
-msgstr ""
+msgstr "extraccións MCMC de"
 
 msgid "are discarded as burn in."
-msgstr ""
+msgstr "descártanse por quecemento."
 
 msgid "Posterior Summary of Coefficients"
-msgstr ""
+msgstr "Resumo posterior dos coeficientes"
 
 msgid "%s%% Credible Interval"
-msgstr ""
+msgstr "Intervalo co %s%% de Credibilidade"
 
 msgid "Coefficients"
-msgstr ""
+msgstr "Coeficientes"
 
 msgid "P(incl)"
-msgstr ""
+msgstr "P(incl)"
 
 msgid "P(incl|data)"
-msgstr ""
+msgstr "P(incl|datos)"
 
 msgid "BF<sub>inclusion</sub>"
-msgstr ""
+msgstr "FB<sub>inclusión</sub>"
 
 msgid "Mean"
-msgstr ""
+msgstr "Media"
 
 msgid "SD"
-msgstr ""
+msgstr "DP"
 
 msgid "Mean<sub>inclusion</sub>"
-msgstr ""
+msgstr "Media<sub>inclusión</sub>"
 
 msgid "SD<sub>inclusion</sub>"
-msgstr ""
+msgstr "DP<sub>inclusión</sub>"
 
 msgid "Lower"
-msgstr ""
+msgstr "Inferior"
 
 msgid "Upper"
-msgstr ""
+msgstr "Superior"
 
 msgid "State Plots"
-msgstr ""
+msgstr "Gráficas de Estado"
 
 msgid "Aggregated State"
-msgstr ""
+msgstr "Estado Agregado"
 
 msgid "Component States"
-msgstr ""
+msgstr "Estados das Compoñentes"
 
 msgid "Control Plots"
-msgstr ""
+msgstr "Gráficas de Control"
 
 msgid "Error Plots"
-msgstr ""
+msgstr "Gráficas de Erro"
 
 msgid "Residual Plot"
-msgstr ""
+msgstr "Gráfica do Erro"
 
 msgid "Forecast Error Plot"
-msgstr ""
+msgstr "Gráfica do Erro de Predicción"
