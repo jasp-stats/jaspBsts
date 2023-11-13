@@ -1,9 +1,15 @@
 msgid ""
 msgstr ""
+"PO-Revision-Date: 2023-11-13 11:11+0000\n"
+"Last-Translator: rania rahida <raniarahida3@gmail.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/jasp/"
+"jaspbsts-qml/id/>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.2-dev\n"
 "X-Language: id\n"
 "X-Source-Language: American English\n"
 "X-Qt-Contexts: true\n"
@@ -28,7 +34,7 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Time"
-msgstr ""
+msgstr "Waktu"
 
 msgctxt "bayesianStateSpace|"
 msgid "Output"
@@ -56,7 +62,7 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Components"
-msgstr ""
+msgstr "Komponen"
 
 msgctxt "bayesianStateSpace|"
 msgid "Add autoregressive component"
@@ -66,9 +72,10 @@ msgctxt "bayesianStateSpace|"
 msgid "Lag selection method"
 msgstr ""
 
+#, fuzzy
 msgctxt "bayesianStateSpace|"
 msgid "Manually"
-msgstr ""
+msgstr "Secara manual"
 
 msgctxt "bayesianStateSpace|"
 msgid "No. of lags"
@@ -108,7 +115,7 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 msgctxt "bayesianStateSpace|"
 msgid "Number"
@@ -116,7 +123,7 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Duration"
-msgstr ""
+msgstr "Durasi"
 
 msgctxt "bayesianStateSpace|"
 msgid "Inverse gamma prior"
@@ -160,7 +167,7 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Prediction"
-msgstr ""
+msgstr "Prediksi"
 
 msgctxt "bayesianStateSpace|"
 msgid "Horizon"
@@ -196,7 +203,7 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Timout in seconds"
-msgstr ""
+msgstr "Batas waktu dalam hitungan detik"
 
 msgctxt "bayesianStateSpace|"
 msgid "Burn-in Specification"
@@ -208,7 +215,7 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Proportion"
-msgstr ""
+msgstr "Proporsi"
 
 msgctxt "bayesianStateSpace|"
 msgid "Manual"
