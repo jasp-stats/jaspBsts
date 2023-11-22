@@ -19,7 +19,7 @@
 
 bayesianStateSpace <- function(
           data = NULL,
-          version = "0.17.1",
+          version = "0.18.2",
           formula = NULL,
           isNuisance = NULL,
           aggregatedStatesPlot = FALSE,
@@ -41,7 +41,7 @@ bayesianStateSpace <- function(
           forecastErrorPlot = FALSE,
           lagSelectionMethod = "manual",
           lags = 1,
-          localLevelComponent = FALSE,
+          localLevelComponent = TRUE,
           localLinearTrendComponent = FALSE,
           manualBurninAmount = 0,
           maxLags = 1,
