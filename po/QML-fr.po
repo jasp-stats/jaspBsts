@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-04-06 02:37+0000\n"
+"PO-Revision-Date: 2024-04-07 21:01+0000\n"
 "Last-Translator: robachowyk <kaya.robach@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/jasp/jaspbsts-qml/"
 "fr/>\n"
@@ -64,19 +64,19 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Components"
-msgstr ""
+msgstr "Composants"
 
 msgctxt "bayesianStateSpace|"
 msgid "Add autoregressive component"
-msgstr ""
+msgstr "Ajouter un composant autorégressif"
 
 msgctxt "bayesianStateSpace|"
 msgid "Lag selection method"
-msgstr ""
+msgstr "Méthode de sélection de délai"
 
 msgctxt "bayesianStateSpace|"
 msgid "Manually"
-msgstr ""
+msgstr "Manuellement"
 
 msgctxt "bayesianStateSpace|"
 msgid "No. of lags"
