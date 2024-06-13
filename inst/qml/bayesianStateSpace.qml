@@ -16,10 +16,10 @@ Form
 	{
 
 		AvailableVariablesList	{ name: "allVariablesList" }
-		AssignedVariablesList	{ name: "dependent";		title: qsTr("Dependent Variable");	suggestedColumns: 	["scale"];	singleVariable: true}
-		AssignedVariablesList	{ name: "covariates";		title: qsTr("Covariates");			suggestedColumns: 	["scale"];	allowedColumns: ["scale"];	id: covariates		}
+		AssignedVariablesList	{ name: "dependent";		title: qsTr("Dependent Variable");	allowedColumns: 	["scale"];	singleVariable: true}
+		AssignedVariablesList	{ name: "covariates";		title: qsTr("Covariates");			allowedColumns: 	["scale"];	id: covariates		}
 		AssignedVariablesList 	{ name: "fixedFactors";		title: qsTr("Fixed Factors");		allowedColumns: 	["ordinal", "nominal"];		id: fixedFactors	}
-		AssignedVariablesList	{ name: "time";				title: qsTr("Time");				suggestedColumns: 	["nominal"];	singleVariable: true		}
+		AssignedVariablesList	{ name: "time";				title: qsTr("Time");				allowedColumns: 	["nominal"];	singleVariable: true		}
 	}
 
 	columns: 2
