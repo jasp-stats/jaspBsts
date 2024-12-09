@@ -20,4 +20,12 @@ Description
 	    func: "bayesianStateSpace"
 		qml: 'bayesianStateSpace.qml'
 	}
+
+	Analysis
+	{
+	    title: "Bayesian Quality Control"
+	    func: "bayesianQualityControl"
+		qml: 'bayesianQualityControl.qml'
+		preloadData: true
+	}
 }
