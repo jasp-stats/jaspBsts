@@ -20,13 +20,28 @@
 bayesianQualityControl         <- function() return(NULL)
 bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
 
-  saveRDS(dataset, file = "C:/JASP/dataset.RDS")
-  saveRDS(options, file = "C:/JASP/options.RDS")
+  # saveRDS(dataset, file = "C:/JASP/dataset.RDS")
+  # saveRDS(options, file = "C:/JASP/options.RDS")
+
+  if (.bqcReady(options))
+    .bqcFitModel(jaspResults, dataset, options)
+
+  if (options[["statePlotsMean"]])
+    .bqcPlotState(jaspResults, dataset, options, "mu")
+  if (options[["statePlotsStandardDeviation"]])
+    .bqcPlotState(jaspResults, dataset, options, "sigma")
+  if (options[["statePlotsCpk"]])
+    .bqcPlotState(jaspResults, dataset, options, "cpk")
+
+  if (options[["posteriorPlotsMean"]])
+    .bqcPlotPosterior(jaspResults, dataset, options, "mu")
+  if (options[["posteriorPlotsStandardDeviation"]])
+    .bqcPlotPosterior(jaspResults, dataset, options, "sigma")
+  if (options[["posteriorPlotsCpk"]])
+    .bqcPlotPosterior(jaspResults, dataset, options, "cpk")
 
   return()
 
-  if(.bqcReady(options))
-    .bqcFitModel(jaspResults, dataset, options)
   options <- readRDS(file = "C:/JASP/options.RDS")
   dataset <- readRDS(file = "C:/JASP/dataset.RDS")
 
@@ -41,14 +56,14 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
   'controlLimitsLower', 'controlLimitsUpper', 'measurement', 'time'
 )
 
-.bqcFitModel  <- function(jaspResults, dataset, options) {
+.bqcFitModel      <- function(jaspResults, dataset, options) {
 
-  if (is.null(jaspResults[["fit"]]$object))
+  if (!is.null(jaspResults[["fit"]]$object))
     return()
 
   # create the output container
   fitContainer <- createJaspState()
-  fitContainer$dependOn(.bqcReady)
+  fitContainer$dependOn(.bqcDependencies)
   jaspResults[["fit"]] <- fitContainer
 
   ### transform the data
@@ -64,7 +79,6 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
     USL = options[["controlLimitsUpper"]]
   )
 
-
   jagsModel <- "
   model {
     # Priors for initial states
@@ -77,10 +91,11 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
     # log_sigma[1] ~ normal(0,1) in Stan
     # In JAGS: dnorm(0,1) means mean=0, tau=1, so sd=1
     log_sigma[1] ~ dnorm(0, 1)
+    sigma[1]    <- exp(log_sigma[1])
 
     # Priors on innovation scales
     # sigma_mu ~ exponential(1) -> sigma_mu ~ dexp(1)
-    sigma_mu ~ dexp(1)
+    sigma_mu        ~ dexp(1)
     sigma_log_sigma ~ dexp(1)
 
     # State evolution
@@ -92,16 +107,16 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
       # log_sigma[t] ~ normal(log_sigma[t-1], sigma_log_sigma)
       # JAGS: log_sigma[t] ~ dnorm(log_sigma[t-1], 1/(sigma_log_sigma^2))
       log_sigma[t] ~ dnorm(log_sigma[t-1], 1/(sigma_log_sigma^2))
+      sigma[t]    <- exp(log_sigma[t])
     }
 
     # Observation model
     for (i in 1:nObservations) {
-      y[i] ~ dnorm(mu[state[i]], 1/(sigma[t]^2))
+      y[i] ~ dnorm(mu[state[i]], 1/(sigma[state[i]]^2))
     }
 
     # Derived quantities (analogous to generated quantities in Stan)
     for (t in 1:nStates) {
-      sigma[t] <- exp(log_sigma[t])
       val1[t] <- (USL - mu[t])/(3 * sigma[t])
       val2[t] <- (mu[t] - LSL)/(3 * sigma[t])
       # cpk[t] = min(val1[t], val2[t]) -> use ifelse in JAGS
@@ -109,6 +124,11 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
     }
   }
   "
+
+  # run with 10 progress bar ticks
+  jaspBase::startProgressbar(10, gettext("Estimating Bayesian State-Space Model"))
+
+  options[["advancedMcmcSamples"]]
 
   # Run the JAGS model using runjags
   fit <- runjags::run.jags(
@@ -118,8 +138,14 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
     n.chains = options[["advancedMcmcChains"]],           # Number of MCMC chains
     adapt  = options[["advancedMcmcAdaptation"]],         # Number of adaptation steps
     burnin = options[["advancedMcmcBurnin"]],             # Number of burn-in steps
-    sample = options[["advancedMcmcSamples"]]             # Number of posterior samples
+    sample = 0,
+    summarise = FALSE
   )
+
+  for(i in 1:10) {
+    jaspBase::progressbarTick()
+    fit <- runjags::extend.jags(fit, adapt  = 0, sample = ceiling(options[["advancedMcmcSamples"]]/10), summarise = FALSE)
+  }
 
   # Extract and save the samples
   samples <- coda::as.mcmc(fit)
@@ -127,30 +153,43 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
 
   return()
 }
-.bqcPlotState <- function(jaspResults, dataset, options, parameter) {
+.bqcPlotState     <- function(jaspResults, dataset, options, parameter) {
+
+  if (is.null(jaspResults[["statePlotContainer"]])) {
+    statePlotContainer <- createJaspContainer(title = gettext("State Plots"))
+    statePlotContainer$dependOn(.bqcDependencies)
+    jaspResults[["statePlotContainer"]] <- statePlotContainer
+  } else{
+    statePlotContainer <- jaspResults[["statePlotContainer"]]
+  }
+
+  if (is.null(statePlotContainer[[parameter]])) {
+    # Create the output container
+    plotContainer <- createJaspPlot(title = switch(
+      parameter,
+      "mu"    = gettext("Mean"),
+      "sigma" = gettext("Standard deviation"),
+      "cpk"   = gettext("Cpk")), width = 500, height = 400)
+    plotContainer$dependOn(switch(
+      parameter,
+      "mu"    = "statePlotsMean",
+      "sigma" = "statePlotsStandardDeviation",
+      "cpk"   = "statePlotsCpk")
+    )
+    plotContainer$position <- switch(
+      parameter,
+      "mu"    = 1,
+      "sigma" = 2,
+      "cpk"   = 3
+    )
+    statePlotContainer[[parameter]] <- plotContainer
+
+  } else {
+    plotContainer <- statePlotContainer[[parameter]]
+  }
 
   if (is.null(jaspResults[["fit"]]$object))
     return()
-
-  # Create the output container
-  plotContainer <- createJaspPlot(title = switch(
-    parameter,
-    "mu"    = "Mean",
-    "sigma" = "Standard deviation",
-    "cpk"   = "Cpk"))
-  plotContainer$dependOn(c(.bqcReady, switch(
-    parameter,
-    "mu"    = "statePlotsMean",
-    "sigma" = "statePlotsStandardDeviation",
-    "cpk"   = "statePlotsCpk")
-  ))
-  plotContainer$position <- switch(
-    parameter,
-    "mu"    = 1,
-    "sigma" = 2,
-    "cpk"   = 3
-  )
-  jaspResults[[paste0("statePlot-")]] <- plotContainer
 
   # Extract the samples
   samples <- jaspResults[["fit"]]$object
@@ -159,28 +198,98 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
   samples <- samples[, grep(parameter, colnames(samples))]
   samplesSummary <- data.frame(
     time = 1:ncol(samples),
-    mean = apply(samples, 2, mean),
+    mean    = apply(samples, 2, median),
     lowerCI = apply(samples, 2, quantile, 0.025),
     upperCI = apply(samples, 2, quantile, 0.975)
   )
 
   # Create the plot
-  plot <- ggplot2::ggplot(samplesSummary, ggplot2::aes(x=time, y=mean)) +
-    ggplot2::geom_ribbon(ggplot2::aes(ymin=lowerCI, ymax=upperCI), alpha=0.3, fill="skyblue") +
-    ggplot2::geom_line(color="blue") +
-    ggplot2::geom_point(color="blue") +
-    ggplot2::ggtitle("Posterior of mu over time") +
-    ggplot2::ylab(switch(
+  plot <- ggplot2::ggplot(data = samplesSummary) +
+    ggplot2::geom_ribbon(mapping = ggplot2::aes(x = time, ymin = lowerCI, ymax = upperCI), alpha = 0.3) +
+    jaspGraphs::geom_line(mapping = ggplot2::aes(x = time, y = mean)) +
+    jaspGraphs::scale_x_continuous(name = gettext("State"), breaks = jaspGraphs::getPrettyAxisBreaks(range(samplesSummary$time))) +
+    jaspGraphs::scale_y_continuous(name = switch(
       parameter,
-      "mu"    = "Mean",
-      "sigma" = "Standard deviation",
-      "cpk"   = "Cpk")) +
-    ggplot2::xlab("State") +
+      "mu"    = gettext("Mean"),
+      "sigma" = gettext("Standard deviation"),
+      "cpk"   = expression("C"["pk"])), breaks = jaspGraphs::getPrettyAxisBreaks(c(min(samplesSummary$lowerCI), max(samplesSummary$upperCI)))) +
     jaspGraphs::geom_rangeframe(sides = "bl") +
-    jaspGraphs::themeJaspRaw() +
-    ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+    jaspGraphs::themeJaspRaw()
 
-  plotContainer$object <- plot
+  plotContainer$plotObject <- plot
+
+  return()
+}
+.bqcPlotPosterior <- function(jaspResults, dataset, options, parameter) {
+
+  if (is.null(jaspResults[["posteriorPlotContainer"]])) {
+    posteriorPlotContainer <- createJaspContainer(title = gettext("Posterior Distributions"))
+    posteriorPlotContainer$dependOn(.bqcDependencies)
+    jaspResults[["posteriorPlotContainer"]] <- posteriorPlotContainer
+  } else {
+    posteriorPlotContainer <- jaspResults[["posteriorPlotContainer"]]
+  }
+
+  if (is.null(posteriorPlotContainer[[parameter]])) {
+    # Create the output container
+    plotContainer <- createJaspPlot(title = switch(
+        parameter,
+        "mu"    = gettext("Mean"),
+        "sigma" = gettext("Standard deviation"),
+        "cpk"   = "Cpk"
+      ), width = 450, height = 400)
+    plotContainer$position <- switch(
+      parameter,
+      "mu"    = 1,
+      "sigma" = 2,
+      "cpk"   = 3
+    )
+    plotContainer$dependOn(switch(
+      parameter,
+      "mu"    = "posteriorPlotsMean",
+      "sigma" = "posteriorPlotsStandardDeviation",
+      "cpk"   = "posteriorPlotsCpk")
+    )
+    posteriorPlotContainer[[parameter]] <- plotContainer
+
+  } else {
+    plotContainer <- posteriorPlotContainer[[parameter]]
+  }
+
+  if (is.null(jaspResults[["fit"]]$object))
+    return()
+
+  # Extract the samples
+  samples <- jaspResults[["fit"]]$object
+
+  # Select the parameter
+  samples <- samples[, sprintf("%1$s[%2$i]", parameter, options[["posteriorPlotsAtState"]])]
+
+  # Create a data frame for plotting
+  plotData <- data.frame(value = as.vector(samples))
+
+  # Create the plot (histogram + density line)
+  plot <- ggplot2::ggplot(data = plotData, ggplot2::aes(x = value)) +
+    ggplot2::geom_histogram(ggplot2::aes(y = ggplot2::after_stat(density)), bins = 30, fill = "gray80", color = "black") +
+    ggplot2::geom_density(size = 1) +
+    jaspGraphs::scale_x_continuous(
+      name = switch(
+        parameter,
+        "mu"    = gettext("Mean"),
+        "sigma" = gettext("Standard deviation"),
+        "cpk"   = expression("C"["pk"]),
+        parameter
+      ),
+      breaks = jaspGraphs::getPrettyAxisBreaks(range(plotData$value))
+    ) +
+    jaspGraphs::scale_y_continuous(
+      name = gettext("Density"),
+      breaks = jaspGraphs::getPrettyAxisBreaks
+    ) +
+    jaspGraphs::geom_rangeframe(sides = "bl") +
+    jaspGraphs::themeJaspRaw()
+
+  plotContainer$plotObject <- plot
 
   return()
 }

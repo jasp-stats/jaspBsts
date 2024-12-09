@@ -36,7 +36,7 @@ Form
 				id:				controlLimitsUpper
 				label:			qsTr("Upper")
 				defaultValue:	1
-				min:			controlLimitsUpper.value
+				min:			controlLimitsLower.value
 				max:			Infinity
 			}
 		}
