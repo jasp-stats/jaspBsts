@@ -28,7 +28,7 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
 
   if (options[["statePlotsMean"]])
     .bqcPlotState(jaspResults, dataset, options, "mu")
-  if (options[["statePlotsStandardDeviation"]])
+  if (options[["statePlotsStandardDeviation"]] && options[["scaleModel"]] == "Heterogeneous")
     .bqcPlotState(jaspResults, dataset, options, "sigma")
   if (options[["statePlotsCpk"]])
     .bqcPlotState(jaspResults, dataset, options, "cpk")
@@ -39,6 +39,9 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
     .bqcPlotPosterior(jaspResults, dataset, options, "sigma")
   if (options[["posteriorPlotsCpk"]])
     .bqcPlotPosterior(jaspResults, dataset, options, "cpk")
+
+  if (options[["CpkThresholdPlot"]])
+    .bqcPlotCpkThreshold(jaspResults, dataset, options)
 
   return()
 
@@ -53,10 +56,10 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
 }
 .bqcDependencies <- c(
   'advancedMcmcAdaptation', 'advancedMcmcBurnin', 'advancedMcmcChains', 'advancedMcmcSamples', 'advancedMcmcThin', 'advancedStateAggregation',
-  'controlLimitsLower', 'controlLimitsUpper', 'measurement', 'time'
+  'controlLimitsLower', 'controlLimitsUpper', 'measurement', 'time', 'scaleModel'
 )
 
-.bqcFitModel      <- function(jaspResults, dataset, options) {
+.bqcFitModel         <- function(jaspResults, dataset, options) {
 
   if (!is.null(jaspResults[["fit"]]$object))
     return()
@@ -78,52 +81,7 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
     LSL = options[["controlLimitsLower"]],
     USL = options[["controlLimitsUpper"]]
   )
-
-  jagsModel <- "
-  model {
-    # Priors for initial states
-    # mu[1] ~ normal((LSL + USL)/2, (USL - LSL)/(2*1.96))
-    # In JAGS: dnorm(mean, tau), tau = 1/sd^2
-    # sd = (USL - LSL)/(2*1.96)
-    # tau = 1 / sd^2 = (2 * 1.96 / (USL - LSL))^2
-    mu[1] ~ dnorm((LSL + USL)/2, pow((2 * 1.96 / (USL - LSL)), 2))
-
-    # log_sigma[1] ~ normal(0,1) in Stan
-    # In JAGS: dnorm(0,1) means mean=0, tau=1, so sd=1
-    log_sigma[1] ~ dnorm(0, 1)
-    sigma[1]    <- exp(log_sigma[1])
-
-    # Priors on innovation scales
-    # sigma_mu ~ exponential(1) -> sigma_mu ~ dexp(1)
-    sigma_mu        ~ dexp(1)
-    sigma_log_sigma ~ dexp(1)
-
-    # State evolution
-    for (t in 2:nStates) {
-      # mu[t] ~ normal(mu[t-1], sigma_mu)
-      # JAGS: mu[t] ~ dnorm(mu[t-1], 1/(sigma_mu^2))
-      mu[t] ~ dnorm(mu[t-1], 1/(sigma_mu^2))
-
-      # log_sigma[t] ~ normal(log_sigma[t-1], sigma_log_sigma)
-      # JAGS: log_sigma[t] ~ dnorm(log_sigma[t-1], 1/(sigma_log_sigma^2))
-      log_sigma[t] ~ dnorm(log_sigma[t-1], 1/(sigma_log_sigma^2))
-      sigma[t]    <- exp(log_sigma[t])
-    }
-
-    # Observation model
-    for (i in 1:nObservations) {
-      y[i] ~ dnorm(mu[state[i]], 1/(sigma[state[i]]^2))
-    }
-
-    # Derived quantities (analogous to generated quantities in Stan)
-    for (t in 1:nStates) {
-      val1[t] <- (USL - mu[t])/(3 * sigma[t])
-      val2[t] <- (mu[t] - LSL)/(3 * sigma[t])
-      # cpk[t] = min(val1[t], val2[t]) -> use ifelse in JAGS
-      cpk[t] <- ifelse(val1[t] < val2[t], val1[t], val2[t])
-    }
-  }
-  "
+  jagsModel <- .bqcGetJagsCode(options)
 
   # run with 10 progress bar ticks
   jaspBase::startProgressbar(10, gettext("Estimating Bayesian State-Space Model"))
@@ -153,11 +111,12 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
 
   return()
 }
-.bqcPlotState     <- function(jaspResults, dataset, options, parameter) {
+.bqcPlotState        <- function(jaspResults, dataset, options, parameter) {
 
   if (is.null(jaspResults[["statePlotContainer"]])) {
     statePlotContainer <- createJaspContainer(title = gettext("State Plots"))
     statePlotContainer$dependOn(.bqcDependencies)
+    statePlotContainer$position <- 1
     jaspResults[["statePlotContainer"]] <- statePlotContainer
   } else{
     statePlotContainer <- jaspResults[["statePlotContainer"]]
@@ -220,11 +179,12 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
 
   return()
 }
-.bqcPlotPosterior <- function(jaspResults, dataset, options, parameter) {
+.bqcPlotPosterior    <- function(jaspResults, dataset, options, parameter) {
 
   if (is.null(jaspResults[["posteriorPlotContainer"]])) {
     posteriorPlotContainer <- createJaspContainer(title = gettext("Posterior Distributions"))
     posteriorPlotContainer$dependOn(.bqcDependencies)
+    posteriorPlotContainer$position <- 2
     jaspResults[["posteriorPlotContainer"]] <- posteriorPlotContainer
   } else {
     posteriorPlotContainer <- jaspResults[["posteriorPlotContainer"]]
@@ -262,8 +222,23 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
   # Extract the samples
   samples <- jaspResults[["fit"]]$object
 
+  if (parameter == "sigma" && options[["scaleModel"]] != "Heterogeneous")
+    parName <- "sigma"
+  else
+    parName <- sprintf("%1$s[%2$i]", parameter, options[["posteriorPlotsAtState"]])
+
+  # Check whether state exists
+  if (!parName %in% colnames(samples)) {
+    plotContainer$setError(gettextf("No samples for %1$s[%2$i]", parameter, options[["posteriorPlotsAtState"]]))
+    return()
+  }
+
   # Select the parameter
-  samples <- samples[, sprintf("%1$s[%2$i]", parameter, options[["posteriorPlotsAtState"]])]
+  samples <- samples[,parName]
+
+  # TODO: change in future: keep only 99.5% of central samples
+  samples <- samples[order(samples)]
+  samples <- samples[ceiling(0.005 * length(samples) / 2):floor(0.995 * length(samples) / 2)]
 
   # Create a data frame for plotting
   plotData <- data.frame(value = as.vector(samples))
@@ -292,4 +267,132 @@ bayesianQualityControlInternal <- function(jaspResults, dataset, options) {
   plotContainer$plotObject <- plot
 
   return()
+}
+.bqcPlotCpkThreshold <- function(jaspResults, dataset, options) {
+
+  if (!is.null(jaspResults[["cpkThresholdPlot"]]))
+    return()
+
+  plotContainer <- createJaspPlot(title = gettext("Cpk Threshold Plot"), width = 500, height = 400)
+  plotContainer$dependOn(c(.bqcDependencies, "CpkThresholdPlot", "CpkThresholdPlotThreshold"))
+  plotContainer$position <- 3
+  jaspResults[["cpkThresholdPlot"]] <- plotContainer
+
+  if (is.null(jaspResults[["fit"]]$object))
+    return()
+
+  # Extract the samples
+  samples <- jaspResults[["fit"]]$object
+
+  # Select the parameter
+  samples <- samples[, grep("cpk", colnames(samples))]
+  samples <- samples > options[["CpkThresholdPlotThreshold"]]
+  samplesSummary <- data.frame(
+    time    = 1:ncol(samples),
+    mean    = apply(samples, 2, mean)
+  )
+
+  # Create the plot
+  plot <- ggplot2::ggplot(data = samplesSummary) +
+    jaspGraphs::geom_line(mapping = ggplot2::aes(x = time, y = mean)) +
+    jaspGraphs::scale_x_continuous(name = gettext("State"), breaks = jaspGraphs::getPrettyAxisBreaks(range(samplesSummary$time))) +
+    jaspGraphs::scale_y_continuous(name = bquote(P("C"["pk"])>.(options[["CpkThresholdPlotThreshold"]])), breaks = jaspGraphs::getPrettyAxisBreaks(c(0, 1))) +
+    jaspGraphs::geom_rangeframe(sides = "bl") +
+    jaspGraphs::themeJaspRaw()
+
+  plotContainer$plotObject <- plot
+
+  return()
+}
+.bqcGetJagsCode   <- function(options) {
+
+  if (options[["scaleModel"]] == "Heterogeneous") {
+    jagsModel <- "
+    model {
+      # Priors for initial states
+      # mu[1] ~ normal((LSL + USL)/2, (USL - LSL)/(2*1.96))
+      # In JAGS: dnorm(mean, tau), tau = 1/sd^2
+      # sd = (USL - LSL)/(2*1.96)
+      # tau = 1 / sd^2 = (2 * 1.96 / (USL - LSL))^2
+      mu[1] ~ dnorm((LSL + USL)/2, pow((2 * 1.96 / (USL - LSL)), 2))
+
+      # log_sigma[1] ~ normal(0,1) in Stan
+      # In JAGS: dnorm(0,1) means mean=0, tau=1, so sd=1
+      log_sigma[1] ~ dnorm(0, 1)
+      sigma[1]    <- exp(log_sigma[1])
+
+      # Priors on innovation scales
+      # sigma_mu ~ exponential(1) -> sigma_mu ~ dexp(1)
+      sigma_mu        ~ dexp(1)
+      sigma_log_sigma ~ dexp(1)
+
+      # State evolution
+      for (t in 2:nStates) {
+        # mu[t] ~ normal(mu[t-1], sigma_mu)
+        # JAGS: mu[t] ~ dnorm(mu[t-1], 1/(sigma_mu^2))
+        mu[t] ~ dnorm(mu[t-1], 1/(sigma_mu^2))
+
+        # log_sigma[t] ~ normal(log_sigma[t-1], sigma_log_sigma)
+        # JAGS: log_sigma[t] ~ dnorm(log_sigma[t-1], 1/(sigma_log_sigma^2))
+        log_sigma[t] ~ dnorm(log_sigma[t-1], 1/(sigma_log_sigma^2))
+        sigma[t]    <- exp(log_sigma[t])
+      }
+
+      # Observation model
+      for (i in 1:nObservations) {
+        y[i] ~ dnorm(mu[state[i]], 1/(sigma[state[i]]^2))
+      }
+
+      # Derived quantities (analogous to generated quantities in Stan)
+      for (t in 1:nStates) {
+        val1[t] <- (USL - mu[t])/(3 * sigma[t])
+        val2[t] <- (mu[t] - LSL)/(3 * sigma[t])
+        # cpk[t] = min(val1[t], val2[t]) -> use ifelse in JAGS
+        cpk[t] <- ifelse(val1[t] < val2[t], val1[t], val2[t])
+      }
+    }
+    "
+  } else if (options[["scaleModel"]] == "Homogeneous") {
+    jagsModel <- "
+    model {
+      # Priors for initial states
+      # mu[1] ~ normal((LSL + USL)/2, (USL - LSL)/(2*1.96))
+      # In JAGS: dnorm(mean, tau), tau = 1/sd^2
+      # sd = (USL - LSL)/(2*1.96)
+      # tau = 1 / sd^2 = (2 * 1.96 / (USL - LSL))^2
+      mu[1] ~ dnorm((LSL + USL)/2, pow((2 * 1.96 / (USL - LSL)), 2))
+
+      # log_sigma[1] ~ normal(0,1) in Stan
+      # In JAGS: dnorm(0,1) means mean=0, tau=1, so sd=1
+      log_sigma   ~ dnorm(0, 1)
+      sigma      <- exp(log_sigma)
+
+      # Priors on innovation scales
+      # sigma_mu ~ exponential(1) -> sigma_mu ~ dexp(1)
+      sigma_mu        ~ dexp(1)
+
+      # State evolution
+      for (t in 2:nStates) {
+        # mu[t] ~ normal(mu[t-1], sigma_mu)
+        # JAGS: mu[t] ~ dnorm(mu[t-1], 1/(sigma_mu^2))
+        mu[t] ~ dnorm(mu[t-1], 1/(sigma_mu^2))
+      }
+
+      # Observation model
+      for (i in 1:nObservations) {
+        y[i] ~ dnorm(mu[state[i]], 1/(sigma^2))
+      }
+
+      # Derived quantities (analogous to generated quantities in Stan)
+      for (t in 1:nStates) {
+        val1[t] <- (USL - mu[t])/(3 * sigma)
+        val2[t] <- (mu[t] - LSL)/(3 * sigma)
+        # cpk[t] = min(val1[t], val2[t]) -> use ifelse in JAGS
+        cpk[t] <- ifelse(val1[t] < val2[t], val1[t], val2[t])
+      }
+    }
+    "
+  }
+
+  return(jagsModel)
 }

@@ -14,6 +14,14 @@ Form
 		AssignedVariablesList	{ name: "measurement";		title: qsTr("Measurement");		allowedColumns: 	["scale"];	singleVariable: true}
 		AssignedVariablesList	{ name: "time";				title: qsTr("Time");			allowedColumns: 	["scale"];	singleVariable: true}
 
+		DropDown
+		{
+			name:	"scaleModel"
+			id:		scaleModel
+			label:	qsTr("Scale model")
+			values:	[ "Homogeneous", "Heterogeneous"]
+		}
+
 		Group
 		{
 			title: qsTr("Control Limits")
@@ -58,6 +66,7 @@ Form
 			name:		"statePlotsStandardDeviation"
 			label:		qsTr("Standard deviation")
 			checked:	true
+			enabled:	scaleModel.value != "Homogeneous"
 		}
 
 		CheckBox
@@ -97,6 +106,20 @@ Form
 			defaultValue:	1
 		}
 	}
+
+	CheckBox
+	{
+		name:	"CpkThresholdPlot"
+		label:	qsTr("Cₚₖ Threshold plot")	
+
+		DoubleField
+		{
+			name: 			"CpkThresholdPlotThreshold"
+			label:			qsTr("Threshold")
+			defaultValue:	1.33
+		}
+	}
+
 
 	Section
 	{
