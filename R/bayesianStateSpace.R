@@ -651,9 +651,9 @@ quantInv <- function(distr, value){
 
   if (!is.na(first_threshold)) {
     captionText <- if (options$time0 != "")
-      gettextf("First date where %1$.3f*sigma is exceeded by %2$.3f%% state credible interval: %3$s", L, CI, first_threshold)
+      gettextf("First date where %1$.3f*sigma is exceeded by %2$.1f%% state credible interval: %3$s", L, 100 * CI, first_threshold)
     else
-      gettextf("First time point where %1$.3f*sigma is exceeded by %2$.3f%% state credible interval: %3$s", L, CI, first_threshold)
+      gettextf("First time point where %1$.3f*sigma is exceeded by %2$.1f%% state credible interval: %3$s", L, 100 * CI, first_threshold)
   } else {
     captionText <- gettext("Threshold never reached")
   }
