@@ -645,11 +645,6 @@ quantInv <- function(distr, value){
     ggplot2::geom_hline(yintercept=ul_state, linetype="dashed", color = "red") +
     ggplot2::geom_hline(yintercept=ll_state, linetype="dashed", color = "red")
 
-  if(options$time0 !="")
-    time_date <- "date"
-  else
-    time_date <- "time point"
-
   first_threshold <- time[which(ymin > ul_state)[1]]
 
     p <- jaspGraphs::themeJasp(p)
