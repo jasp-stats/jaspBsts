@@ -336,12 +336,13 @@ quantInv <- function(distr, value){
   bstsTable$addColumnInfo(name="relGof",  title=gettext("Harvey's goodness of fit"),  type= "number")
 
   if(!is.null(bstsResults)){
-    if (bstsResults$niter < options$samples )
-      message <- gettextf("Only %1$s draws were sampled out of the desired %2$s. Additionally, %3$s MCMC draws out of %1$s are discarded as burn in.", bstsResults$niter, options$samples, options$burn)
+    message <- if (bstsResults$niter < options$samples )
+      gettextf("Only %1$s draws were sampled out of the desired %2$s. Additionally, %3$s MCMC draws out of %1$s are discarded as burn in.", bstsResults$niter, options$samples, options$burn)
     else
-      message <- gettextf(paste0(options$burn, " MCMC draws out of ", bstsResults$niter, " are discarded as burn in."))
+      gettextf("%1$d MCMC draws out of %2$d are discarded as burn in.", options$burn, bstsResults$niter)
 
-    if(options$"localLevelComponent") message <- paste(message, "The local level component has been selected (by default). If you wish to adjust the model, you can do so under 'Model Components'.", sep="\n")
+    if (options$"localLevelComponent")
+      message <- paste(message, gettext("The local level component has been selected (by default). If you wish to adjust the model, you can do so under 'Model Components'."), sep = "\n")
     bstsTable$addFootnote(message)
   }
 
@@ -493,8 +494,8 @@ quantInv <- function(distr, value){
 
   p <-  ggplot2::ggplot(NULL,ggplot2::aes(x=time,y=mean)) +
     ggplot2::geom_ribbon(mapping=ggplot2::aes(ymin=ymin,ymax =ymax),
-                         fill ="blue",alpha=0.5) + ggplot2::xlab("Time") +
-    ggplot2::ylab("Distribution") +
+                         fill ="blue",alpha=0.5) + ggplot2::xlab(gettext("Time")) +
+    ggplot2::ylab(gettext("Distribution")) +
     ggplot2::geom_line(size=0.7)
 
 
@@ -547,7 +548,7 @@ quantInv <- function(distr, value){
 .bstsCreatePredictionPlot <- function(jaspResults,options,ready) {
   if(!ready | !options$predictionHorizon>0) return()
 
-  bstsPredictionPlot <- createJaspPlot(title="Prediction plot", height = 320, width = 480)
+  bstsPredictionPlot <- createJaspPlot(title=gettext("Prediction plot"), height = 320, width = 480)
   bstsPredictionPlot$dependOn(.bstsPredictionDependencies())
 
   bstsModelResults <- jaspResults[["bstsMainContainer"]][["bstsModelResults"]]$object
@@ -565,7 +566,7 @@ quantInv <- function(distr, value){
   p <- ggplot2::ggplot(data=predDF,ggplot2::aes(x=time,y=mean)) +
     ggplot2::geom_ribbon(mapping=ggplot2::aes(ymin=LL,ymax=UL),
                          fill ="blue",alpha=0.5) +
-    ggplot2::xlab("Time") +
+    ggplot2::xlab(gettext("Time")) +
     ggplot2::geom_line(size=0.7) +
     ggplot2::geom_vline(xintercept=length(bstsPredictionResults$original.series),linetype=2) +
     ggplot2::theme_classic()
@@ -606,7 +607,7 @@ quantInv <- function(distr, value){
   control = c(1:options$controlPeriod)
   L = options$controlSigma
   CI=.95
-  bstsControlPlotThreshold <- createJaspPlot(title="Threshold Plot", height = 320, width = 480)
+  bstsControlPlotThreshold <- createJaspPlot(title=gettext("Threshold Plot"), height = 320, width = 480)
 
   # extract model components
   state <- bstsResults$state.contribution
@@ -637,26 +638,27 @@ quantInv <- function(distr, value){
 
   p <- ggplot2::ggplot(NULL,ggplot2::aes(x=time,y=mean))+
     ggplot2::geom_ribbon(mapping=ggplot2::aes(ymin=ymin,ymax =ymax ),
-                         alpha=0.5,fill ="blue") + ggplot2::xlab("Time") +
-    ggplot2::ylab("Distribution") +
+                         alpha=0.5,fill ="blue") + ggplot2::xlab(gettext("Time")) +
+    ggplot2::ylab(gettext("Distribution")) +
     ggplot2::geom_line(size=0.7) +
     ggplot2::theme_classic() +
     ggplot2::geom_hline(yintercept=ul_state, linetype="dashed", color = "red") +
     ggplot2::geom_hline(yintercept=ll_state, linetype="dashed", color = "red")
 
-  if(options$time0 !="")
-    time_date <- "date"
-  else
-    time_date <- "time point"
-
   first_threshold <- time[which(ymin > ul_state)[1]]
 
     p <- jaspGraphs::themeJasp(p)
 
-  if(!is.na(first_threshold))
-    p <- p + ggplot2::labs(caption=paste0("First ",time_date," where ",L,"*sigma is exeeded by ",CI, " % state credible interval: ",first_threshold))
-  else
-    p <- p + ggplot2::labs(caption= paste0("Threshold never reached"))
+  if (!is.na(first_threshold)) {
+    captionText <- if (options$time0 != "")
+      gettextf("First date where %1$.3f*sigma is exceeded by %2$.3f%% state credible interval: %3$s", L, CI, first_threshold)
+    else
+      gettextf("First time point where %1$.3f*sigma is exceeded by %2$.3f%% state credible interval: %3$s", L, CI, first_threshold)
+  } else {
+    captionText <- gettext("Threshold never reached")
+  }
+
+  p <- p + ggplot2::labs(caption = captionText)
 
 
 
@@ -673,13 +675,13 @@ quantInv <- function(distr, value){
 
 .bstsFillControlPlotProbability <- function(bstsControlPlots,bstsResults,options,ready){
 
-  bstsControlPlotProbability <- createJaspPlot(title="Probability Plot", height = 320, width = 480)
+  bstsControlPlotProbability <- createJaspPlot(title=gettext("Probability Plot"), height = 320, width = 480)
 
 
   control = c(1:options$controlPeriod)
   L = options$controlSigma
   CI=.95 # add option in JASP later
-  bstsControlPlotThreshold <- createJaspPlot(title="Threshold Plot")
+  bstsControlPlotThreshold <- createJaspPlot(title=gettext("Threshold Plot"))
 
   # extract model components
   state <- bstsResults$state.contribution
@@ -714,8 +716,8 @@ quantInv <- function(distr, value){
 
 
 
-  p <- ggplot2::ggplot(NULL,ggplot2::aes(time,threshold_prob)) + ggplot2::xlab("Time") +
-    ggplot2::ylab("Probability") + ggplot2::geom_line() + ggplot2::theme_classic() + ggplot2::ylim(0,1)
+  p <- ggplot2::ggplot(NULL,ggplot2::aes(time,threshold_prob)) + ggplot2::xlab(gettext("Time")) +
+    ggplot2::ylab(gettext("Probability")) + ggplot2::geom_line() + ggplot2::theme_classic() + ggplot2::ylim(0,1)
 
 
   p <- jaspGraphs::themeJasp(p) +
@@ -761,8 +763,8 @@ quantInv <- function(distr, value){
 
   p <-  ggplot2::ggplot(NULL,ggplot2::aes(x=time,y=mean)) +
     ggplot2::geom_ribbon(mapping=ggplot2::aes(ymin=ymin,ymax =ymax),
-                         fill ="blue",alpha=0.5) + ggplot2::xlab("Time") +
-    ggplot2::ylab("Distribution") +
+                         fill ="blue",alpha=0.5) + ggplot2::xlab(gettext("Time")) +
+    ggplot2::ylab(gettext("Distribution")) +
     ggplot2::geom_line(size=0.7)
 
   p <- jaspGraphs::themeJasp(p)
@@ -790,8 +792,8 @@ quantInv <- function(distr, value){
 
   p <-  ggplot2::ggplot(NULL,ggplot2::aes(x=time,y=mean)) +
     ggplot2::geom_ribbon(mapping=ggplot2::aes(ymin=ymin,ymax =ymax),
-                         fill ="blue",alpha=0.5) + ggplot2::xlab("Time") +
-    ggplot2::ylab("Distribution") +
+                         fill ="blue",alpha=0.5) + ggplot2::xlab(gettext("Time")) +
+    ggplot2::ylab(gettext("Distribution")) +
     ggplot2::geom_line(size=0.7)
 
   p <- jaspGraphs::themeJasp(p)
