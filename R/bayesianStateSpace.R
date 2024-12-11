@@ -336,12 +336,13 @@ quantInv <- function(distr, value){
   bstsTable$addColumnInfo(name="relGof",  title=gettext("Harvey's goodness of fit"),  type= "number")
 
   if(!is.null(bstsResults)){
-    if (bstsResults$niter < options$samples )
-      message <- gettextf("Only %1$s draws were sampled out of the desired %2$s. Additionally, %3$s MCMC draws out of %1$s are discarded as burn in.", bstsResults$niter, options$samples, options$burn)
+    message <- if (bstsResults$niter < options$samples )
+      gettextf("Only %1$s draws were sampled out of the desired %2$s. Additionally, %3$s MCMC draws out of %1$s are discarded as burn in.", bstsResults$niter, options$samples, options$burn)
     else
-      message <- gettextf(paste0(options$burn, " MCMC draws out of ", bstsResults$niter, " are discarded as burn in."))
+      gettextf("%1$d MCMC draws out of %2$d are discarded as burn in.", options$burn, bstsResults$niter)
 
-    if(options$"localLevelComponent") message <- paste(message, "The local level component has been selected (by default). If you wish to adjust the model, you can do so under 'Model Components'.", sep="\n")
+    if (options$"localLevelComponent")
+      message <- paste(message, gettext("The local level component has been selected (by default). If you wish to adjust the model, you can do so under 'Model Components'."), sep = "\n")
     bstsTable$addFootnote(message)
   }
 
@@ -653,10 +654,16 @@ quantInv <- function(distr, value){
 
     p <- jaspGraphs::themeJasp(p)
 
-  if(!is.na(first_threshold))
-    p <- p + ggplot2::labs(caption=paste0("First ",time_date," where ",L,"*sigma is exeeded by ",CI, " % state credible interval: ",first_threshold))
-  else
-    p <- p + ggplot2::labs(caption= paste0("Threshold never reached"))
+  if (!is.na(first_threshold)) {
+    captionText <- if (options$time0 != "")
+      gettextf("First date where %1$.3f*sigma is exceeded by %2$.3f%% state credible interval: %3$s", L, CI, first_threshold)
+    else
+      gettextf("First time point where %1$.3f*sigma is exceeded by %2$.3f%% state credible interval: %3$s", L, CI, first_threshold)
+  } else {
+    captionText <- gettext("Threshold never reached")
+  }
+
+  p <- p + ggplot2::labs(caption = captionText)
 
 
 
