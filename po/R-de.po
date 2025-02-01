@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspBsts 0.1.0\n"
 "POT-Creation-Date: 2024-12-14 02:55\n"
-"PO-Revision-Date: 2023-07-28 19:32+0000\n"
+"PO-Revision-Date: 2025-02-02 05:59+0000\n"
 "Last-Translator: Johannes Keyser <joke@fsfe.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/jasp/jaspbsts-r/"
 "de/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 msgid ""
 "Unknown value provided for modelType, possible values: `alternative`, `null`"
@@ -40,14 +40,15 @@ msgstr ""
 "Von den gewünschten %2$s Stichproben wurden nur %1$s gezogen. Zusätzlich "
 "werden %3$s der %1$s MCMC-Stichproben als Aufwärmphase verworfen."
 
-#, fuzzy
 msgid "%1$d MCMC draws out of %2$d are discarded as burn in."
-msgstr "werden als Aufwärmphase verworfen."
+msgstr "%1$d von %2$d MCMC-Ziehungen werden als Aufwärmphase verworfen."
 
 msgid ""
 "The local level component has been selected (by default). If you wish to "
 "adjust the model, you can do so under 'Model Components'."
 msgstr ""
+"Die Komponente lokale Ebene wurde ausgewählt (standardmäßig). Wenn Sie das "
+"Modell anpassen möchten, können Sie dies unter 'Modellkomponenten' tun."
 
 msgid "Posterior Summary of Coefficients"
 msgstr "Posterior-Zusammenfassung der Koeffizienten"
@@ -92,23 +93,22 @@ msgid "Aggregated State"
 msgstr "Aggregierter Zustand"
 
 msgid "Time"
-msgstr ""
+msgstr "Zeit"
 
 msgid "Distribution"
-msgstr ""
+msgstr "Verteilung"
 
 msgid "Component States"
 msgstr "Komponenten-Zustände"
 
-#, fuzzy
 msgid "Prediction plot"
-msgstr "Vorhersage SD"
+msgstr "Vorhersage-Diagramm"
 
 msgid "Control Plots"
 msgstr "Kontrolldiagramme"
 
 msgid "Threshold Plot"
-msgstr ""
+msgstr "Schwellwert-Diagramm"
 
 msgid ""
 "First date where %1$.3f*sigma is exceeded by %2$.1f%% state credible "
