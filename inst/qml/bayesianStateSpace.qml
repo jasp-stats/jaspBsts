@@ -56,7 +56,7 @@ Form
 
 		title: qsTr("Model Components")
 
-		//columns: 2
+		columns: 1
 		VariablesForm
 		{
 			preferredHeight: jaspTheme.smallDefaultVariablesFormHeight
@@ -75,7 +75,6 @@ Form
 			label: qsTr("Add autoregressive component")
 			checked: false
 			id: checkAr
-			Layout.columnSpan: 2
 
 			columns: 2
 
@@ -124,7 +123,7 @@ Form
 			label: qsTr("Add local level component")
 			id: checkLocalLevel
 			checked: true
-			Layout.columnSpan: 2
+			//Layout.columnSpan: 2
 			//CheckBox
 			//{
 			//	name: "localLevelSdPrior"
@@ -143,8 +142,6 @@ Form
 			label: qsTr("Add local linear trend component")
 			id: checkLocalLinearTrend
 			checked: false
-			columns: 2
-			Layout.columnSpan: 2
 			//CheckBox
 			//{
 			//	name: "lltLevelPrior"
@@ -171,7 +168,6 @@ Form
 			label : qsTr("Add semi-local linear trend")
 			checked: false
 			id: checkSemiLocalLinearTrend
-			Layout.columnSpan: 2
 		}
 		//Dynamic Regression Component
 		CheckBox
@@ -180,9 +176,6 @@ Form
 			label: qsTr("Add dynamic regression component")
 			checked: false
 			id: checkDynReg
-			Layout.columnSpan: 2
-
-			columns: 2
 			DoubleField { name:"dynamicRegregressionLags";		label: qsTr("Lag of coefficients");	fieldWidth: 40;}
 		}
 
@@ -427,10 +420,10 @@ Form
 				DoubleField { name:"automaticBurninProportion"
 											label: qsTr("Proportion")
 											fieldWidth: 60
-										 	defaultValue: 0.1
+											defaultValue: 0.1
 											min:0
 											max: 0.999
-										 	}
+											}
 			}
 			RadioButton
 			{
@@ -440,7 +433,7 @@ Form
 											fieldWidth: 60
 											defaultValue: 0
 
-										 	}
+											}
 			}
 		}
 		DoubleField { name:"seed";		label: qsTr("Seed");	fieldWidth: 60; defaultValue: 1}
