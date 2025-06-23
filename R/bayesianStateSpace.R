@@ -182,7 +182,7 @@ bayesianStateSpaceInternal <- function(jaspResults, dataset, options) {
     ss <- bsts::AddSemilocalLinearTrend(ss,y=dataset[,options[["dependent"]]])
 
 
-  if(options$dynamicRegregressionComponent & options$dynamicRegregressionLags==0)
+  if(options$dynamicRegregressionComponent)# & options$dynamicRegregressionLags==0)
     ss <- bsts::AddDynamicRegression(ss,formula=formula,data=dataset)
 
 

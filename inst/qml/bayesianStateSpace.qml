@@ -176,7 +176,10 @@ Form
 			label: qsTr("Add dynamic regression component")
 			checked: false
 			id: checkDynReg
-			DoubleField { name:"dynamicRegregressionLags";		label: qsTr("Lag of coefficients");	fieldWidth: 40;}
+			// The double field should probably be an integerfield, but it's unused in the R code at the moment
+			// DoubleField { name:"dynamicRegregressionLags";		label: qsTr("Lag of coefficients");	fieldWidth: 40;}
+			enabled: covariates.count > 0 || fixedFactors.count > 0
+			info: qsTr("This component allows you to model the effect of covariates or fixed factors on the dependent variable. The lag of coefficients can be specified to account for delayed effects. Only available when covariates or fixed factors are present in the model.")
 		}
 
 		Group
@@ -218,7 +221,7 @@ Form
 							Layout.preferredWidth: 45 * preferencesModel.uiScale
 							spacing: 4 * preferencesModel.uiScale
 
-							DoubleField
+							IntegerField
 							{
 								name: "number"
 								defaultValue: 2
@@ -247,13 +250,16 @@ Form
 								label: "σ"
 								fieldWidth: 60 * preferencesModel.uiScale
 								placeholderText: ".01 * sdy"
-
+								min: 0
+								inclusive: JASP.MaxOnly
 							}
 							DoubleField
 							{
 								name: "inverseGammaPriorN"
 								label: "n"
 								defaultValue: 0.01
+								min: 0
+								inclusive: JASP.MaxOnly
 							}
 						}
 						Row
@@ -266,8 +272,6 @@ Form
 								name: "normalPriorMean"
 								label: "μ"
 								defaultValue: 0
-
-
 							}
 							TextField
 							{
@@ -275,6 +279,8 @@ Form
 								label:"σ²"
 								placeholderText: "sdy"
 								fieldWidth: 40 * preferencesModel.uiScale
+								min: 0
+								inclusive: JASP.MaxOnly
 							}
 						}
 					}
@@ -360,6 +366,8 @@ Form
 				name: "predictionHorizon"
 				label: qsTr("Horizon")
 				enabled: covariates.count === 0 && fixedFactors.count === 0
+				max: 1000000
+				inclusive: JASP.MinMax
 			}
 		}
 
