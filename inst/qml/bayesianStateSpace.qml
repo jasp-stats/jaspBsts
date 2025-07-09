@@ -244,14 +244,15 @@ Form
 							Layout.preferredWidth: 140 * preferencesModel.uiScale
 							spacing: 4 * preferencesModel.uiScale
 
-							TextField
+							DoubleField
 							{
 								name: "inverseGammaPriorSd"
 								label: "σ"
 								fieldWidth: 60 * preferencesModel.uiScale
-								placeholderText: ".01 * sdy"
+								defaultValue: 0.01
 								min: 0
 								inclusive: JASP.MaxOnly
+								afterLabel: "× sdy"
 							}
 							DoubleField
 							{
@@ -273,12 +274,12 @@ Form
 								label: "μ"
 								defaultValue: 0
 							}
-							TextField
+							DoubleField
 							{
 								name: "normalPriorSd"
 								label:"σ²"
-								placeholderText: "sdy"
 								fieldWidth: 40 * preferencesModel.uiScale
+								defaultValue: 0.01
 								min: 0
 								inclusive: JASP.MaxOnly
 							}
