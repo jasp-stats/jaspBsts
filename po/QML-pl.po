@@ -187,10 +187,6 @@ msgid "Expected predictors"
 msgstr "Oczekiwane predyktory"
 
 msgctxt "bayesianStateSpace|"
-msgid "Lag of coefficients"
-msgstr ""
-
-msgctxt "bayesianStateSpace|"
 msgid "Control period end"
 msgstr ""
 
@@ -221,3 +217,11 @@ msgstr "Ziarno generatora"
 msgctxt "bayesianStateSpace|"
 msgid "Fixed Factors"
 msgstr "Czynniki stałe"
+
+msgctxt "bayesianStateSpace|"
+msgid ""
+"This component allows you to model the effect of covariates or fixed factors "
+"on the dependent variable. The lag of coefficients can be specified to "
+"account for delayed effects. Only available when covariates or fixed factors "
+"are present in the model."
+msgstr ""

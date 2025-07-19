@@ -189,10 +189,6 @@ msgid "Expected predictors"
 msgstr "Erwartete Prädiktoren"
 
 msgctxt "bayesianStateSpace|"
-msgid "Lag of coefficients"
-msgstr "Verzögerung der Koeffizienten"
-
-msgctxt "bayesianStateSpace|"
 msgid "Control period end"
 msgstr "Ende des Kontrollzeitraums"
 
@@ -223,3 +219,11 @@ msgstr "Startwert für Zufallszahlen"
 msgctxt "bayesianStateSpace|"
 msgid "Fixed Factors"
 msgstr "Feste Faktoren"
+
+msgctxt "bayesianStateSpace|"
+msgid ""
+"This component allows you to model the effect of covariates or fixed factors "
+"on the dependent variable. The lag of coefficients can be specified to "
+"account for delayed effects. Only available when covariates or fixed factors "
+"are present in the model."
+msgstr ""

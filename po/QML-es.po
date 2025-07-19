@@ -101,10 +101,6 @@ msgid "Add dynamic regression component"
 msgstr "Añadir componente de regresión dinámica"
 
 msgctxt "bayesianStateSpace|"
-msgid "Lag of coefficients"
-msgstr "Retardo de los coeficientes"
-
-msgctxt "bayesianStateSpace|"
 msgid "Seasonalities"
 msgstr "Estacionalidades"
 
@@ -223,3 +219,11 @@ msgstr "Semilla"
 msgctxt "bayesianStateSpace|"
 msgid "Fixed Factors"
 msgstr "Factores Fijos"
+
+msgctxt "bayesianStateSpace|"
+msgid ""
+"This component allows you to model the effect of covariates or fixed factors "
+"on the dependent variable. The lag of coefficients can be specified to "
+"account for delayed effects. Only available when covariates or fixed factors "
+"are present in the model."
+msgstr ""
