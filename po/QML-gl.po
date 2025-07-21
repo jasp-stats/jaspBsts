@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-07-20 08:02+0000\n"
+"PO-Revision-Date: 2025-07-22 19:02+0000\n"
 "Last-Translator: ecadrian <ecadrian@hotmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/jasp/"
 "jaspbsts-qml/gl/>\n"
@@ -184,7 +184,7 @@ msgstr "Fin do período de control"
 
 msgctxt "bayesianStateSpace|"
 msgid "σ threshold"
-msgstr "lindeiro de σ"
+msgstr "Lindeiro de σ"
 
 msgctxt "bayesianStateSpace|"
 msgid "Show probalistic control plot"
