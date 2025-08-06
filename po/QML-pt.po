@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-08-06 02:02+0000\n"
+"PO-Revision-Date: 2025-08-06 07:43+0000\n"
 "Last-Translator: Wendel Paulo Silvestre <wpsilvestre@ucs.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/jasp/"
 "jaspbsts-qml/pt/>\n"
@@ -56,39 +56,39 @@ msgstr "Intervalo credível"
 
 msgctxt "bayesianStateSpace|"
 msgid "Expected predictors"
-msgstr ""
+msgstr "Preditores esperados"
 
 msgctxt "bayesianStateSpace|"
 msgid "Model Components"
-msgstr ""
+msgstr "Componentes do Modelo"
 
 msgctxt "bayesianStateSpace|"
 msgid "Components"
-msgstr ""
+msgstr "Componentes"
 
 msgctxt "bayesianStateSpace|"
 msgid "Add autoregressive component"
-msgstr ""
+msgstr "Adicionar componente autorregressivo"
 
 msgctxt "bayesianStateSpace|"
 msgid "Lag selection method"
-msgstr ""
+msgstr "Método de seleção lag"
 
 msgctxt "bayesianStateSpace|"
 msgid "Manually"
-msgstr ""
+msgstr "Manualmente"
 
 msgctxt "bayesianStateSpace|"
 msgid "No. of lags"
-msgstr ""
+msgstr "N° de lags"
 
 msgctxt "bayesianStateSpace|"
 msgid "Automatic"
-msgstr ""
+msgstr "Automático"
 
 msgctxt "bayesianStateSpace|"
 msgid "Maximal lags"
-msgstr ""
+msgstr "Lags máximos"
 
 msgctxt "bayesianStateSpace|"
 msgid "Add local level component"
