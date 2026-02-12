@@ -182,113 +182,79 @@ Form
 			info: qsTr("This component allows you to model the effect of covariates or fixed factors on the dependent variable. The lag of coefficients can be specified to account for delayed effects. Only available when covariates or fixed factors are present in the model.")
 		}
 
-		Group
+
+		ComponentsList
 		{
+			id: seasonalities
+			name: "seasonalities"
 			title: qsTr("Seasonalities")
-
-			ColumnLayout
+			headerLabels: [qsTr("Name"), qsTr("Number"), qsTr("Duration"), qsTr("Inverse gamma prior"), "", qsTr("Normal prior initial state")]
+			rowComponent: RowLayout
 			{
-				spacing: 0 * preferencesModel.uiScale
+				width: seasonalities.width - 35 * preferencesModel.uiScale
 
-				RowLayout
+				TextField
 				{
-					Label { text: qsTr("Name"); Layout.preferredWidth: 80 * preferencesModel.uiScale								}
-					Label { text: qsTr("Number"); Layout.preferredWidth: 45 * preferencesModel.uiScale								}
-					Label { text: qsTr("Duration"); Layout.preferredWidth: 45 * preferencesModel.uiScale							}
-					Label { text: qsTr("Inverse gamma prior"); Layout.preferredWidth: 140 * preferencesModel.uiScale				}
-					Label { text: qsTr("Normal prior initial state"); Layout.preferredWidth: 140 * preferencesModel.uiScale			}
+					name: "name"
+					fieldWidth: 80 * preferencesModel.uiScale
+					placeholderText: "Yearly"
 				}
 
-				ComponentsList
+				IntegerField
 				{
-					name: "seasonalities"
-					rowComponent: RowLayout
-					{
-						Row
-						{
-							Layout.preferredWidth: 80 * preferencesModel.uiScale
-							spacing: 4 * preferencesModel.uiScale
+					name: "number"
+					fieldWidth: 45 * preferencesModel.uiScale
+					defaultValue: 2
+					min: 2
+				}
 
-							TextField
-							{
-								name: "name"
-								fieldWidth: 80 * preferencesModel.uiScale
-								placeholderText: "Yearly"
-							}
-						}
-						Row
-						{
-							Layout.preferredWidth: 45 * preferencesModel.uiScale
-							spacing: 4 * preferencesModel.uiScale
+				DoubleField
+				{
+					name: "duration"
+					fieldWidth: 45 * preferencesModel.uiScale
+					defaultValue: 1
+				}
 
-							IntegerField
-							{
-								name: "number"
-								defaultValue: 2
-								min: 2
-							}
-						}
-						Row
-						{
-							Layout.preferredWidth: 45 * preferencesModel.uiScale
-							spacing: 4 * preferencesModel.uiScale
+				DoubleField
+				{
+					name: "inverseGammaPriorSd"
+					label: "σ"
+					fieldWidth: 60 * preferencesModel.uiScale
+					defaultValue: 0.01
+					min: 0
+					inclusive: JASP.MaxOnly
+					afterLabel: "× sdy"
+				}
 
-							DoubleField
-							{
-								name: "duration"
-								defaultValue: 1
-							}
-						}
-						Row
-						{
-							Layout.preferredWidth: 140 * preferencesModel.uiScale
-							spacing: 4 * preferencesModel.uiScale
-
-							DoubleField
-							{
-								name: "inverseGammaPriorSd"
-								label: "σ"
-								fieldWidth: 60 * preferencesModel.uiScale
-								defaultValue: 0.01
-								min: 0
-								inclusive: JASP.MaxOnly
-								afterLabel: "× sdy"
-							}
-							DoubleField
-							{
-								name: "inverseGammaPriorN"
-								label: "n"
-								defaultValue: 0.01
-								min: 0
-								inclusive: JASP.MaxOnly
-							}
-						}
-						Row
-						{
-							Layout.preferredWidth: 100 * preferencesModel.uiScale
-							spacing: 4 * preferencesModel.uiScale
-
-							DoubleField
-							{
-								name: "normalPriorMean"
-								label: "μ"
-								defaultValue: 0
-							}
-							DoubleField
-							{
-								name: "normalPriorSd"
-								label:"σ²"
-								fieldWidth: 40 * preferencesModel.uiScale
-								defaultValue: 0.01
-								min: 0
-								inclusive: JASP.MaxOnly
-							}
-						}
-					}
+				DoubleField
+				{
+					name: "inverseGammaPriorN"
+					label: "n"
+					defaultValue: 0.01
+					min: 0
+					inclusive: JASP.MaxOnly
+					fieldWidth: 60 * preferencesModel.uiScale
+					Layout.leftMargin: -15
+				}
+				DoubleField
+				{
+					name: "normalPriorMean"
+					label: "μ"
+					defaultValue: 0
+					fieldWidth: 40 * preferencesModel.uiScale
+				}
+				DoubleField
+				{
+					name: "normalPriorSd"
+					label:"σ²"
+					fieldWidth: 40 * preferencesModel.uiScale
+					defaultValue: 0.01
+					min: 0
+					inclusive: JASP.MaxOnly
+					Layout.leftMargin: -10
 				}
 			}
 		}
-
 	}
 
 
