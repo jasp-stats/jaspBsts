@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspBsts 0.95.0\n"
 "POT-Creation-Date: 2025-06-21 03:05\n"
-"PO-Revision-Date: 2026-05-21 07:11+0000\n"
-"Last-Translator: Akira Harada <momoldo@gmail.com>\n"
+"PO-Revision-Date: 2026-07-28 05:01+0000\n"
+"Last-Translator: Koji Kosugi <kosugitti@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/jaspbsts-r/"
 "ja/>\n"
 "Language: ja\n"
@@ -11,115 +11,119 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 msgid "Unknown value provided for modelType, possible values: `alternative`, `null`"
-msgstr ""
+msgstr "modelType に不明な値が指定されました。指定できる値: `alternative`, `null`"
 
 msgid "Model Summary"
-msgstr ""
+msgstr "モデルの要約"
 
 msgid "Residual SD"
-msgstr ""
+msgstr "残差SD"
 
 msgid "Prediction SD"
-msgstr ""
+msgstr "予測SD"
 
 msgid "R%s"
-msgstr ""
+msgstr "R%s"
 
 msgid "Harvey's goodness of fit"
-msgstr ""
+msgstr "ハーヴェイの適合度"
 
 msgid "Only %1$s draws were sampled out of the desired %2$s. Additionally, %3$s MCMC draws out of %1$s are discarded as burn in."
 msgstr ""
+"希望した %2$s のうち %1$s ドローしか得られませんでした。さらに、%1$s 個のう"
+"ち %3$s 個のMCMCドローがバーンインとして除外されました。"
 
 msgid "%1$d MCMC draws out of %2$d are discarded as burn in."
-msgstr ""
+msgstr "%2$d 個のMCMCドローのうち %1$d 個がバーンインとして除外されました。"
 
 msgid "The local level component has been selected (by default). If you wish to adjust the model, you can do so under 'Model Components'."
 msgstr ""
+"局所水準成分が(既定で)選択されています。変更したい場合は「成分」セクションで"
+"調整してください。"
 
 msgid "Posterior Summary of Coefficients"
-msgstr ""
+msgstr "係数の事後要約"
 
 msgid "%s%% Credible Interval"
-msgstr ""
+msgstr "%s%% 信用区間"
 
 msgid "Coefficients"
-msgstr ""
+msgstr "係数"
 
 msgid "P(incl)"
-msgstr ""
+msgstr "P(incl)"
 
 msgid "P(incl|data)"
-msgstr ""
+msgstr "P(incl|data)"
 
 msgid "BF<sub>inclusion</sub>"
-msgstr ""
+msgstr "BF<sub>inclusion</sub>"
 
 msgid "Mean"
-msgstr "平均値"
+msgstr "平均"
 
 msgid "SD"
-msgstr ""
+msgstr "SD"
 
 msgid "Mean<sub>inclusion</sub>"
-msgstr ""
+msgstr "Mean<sub>inclusion</sub>"
 
 msgid "SD<sub>inclusion</sub>"
-msgstr ""
+msgstr "SD<sub>inclusion</sub>"
 
 msgid "Lower"
-msgstr ""
+msgstr "下限"
 
 msgid "Upper"
-msgstr ""
+msgstr "上限"
 
 msgid "State Plots"
-msgstr ""
+msgstr "状態プロット"
 
 msgid "Aggregated State"
-msgstr ""
+msgstr "集約された状態"
 
 msgid "Time"
-msgstr ""
+msgstr "時間"
 
 msgid "Distribution"
-msgstr ""
+msgstr "分布"
 
 msgid "Component States"
-msgstr ""
+msgstr "成分ごとの状態"
 
 msgid "Prediction plot"
-msgstr ""
+msgstr "予測プロット"
 
 msgid "Control Plots"
-msgstr ""
+msgstr "管理図"
 
 msgid "Threshold Plot"
-msgstr ""
+msgstr "しきい値プロット"
 
 msgid "First date where %1$.3f*sigma is exceeded by %2$.1f%% state credible interval: %3$s"
-msgstr ""
+msgstr "%2$.1f%% の状態信用区間が %1$.3f*sigma をはじめて超えた日付: %3$s"
 
 msgid "First time point where %1$.3f*sigma is exceeded by %2$.1f%% state credible interval: %3$s"
-msgstr ""
+msgstr "%2$.1f%% の状態信用区間が %1$.3f*sigma をはじめて超えた時点: %3$s"
 
 msgid "Threshold never reached"
-msgstr ""
+msgstr "しきい値には到達しませんでした"
 
 msgid "Probability Plot"
-msgstr ""
+msgstr "確率プロット"
 
 msgid "Probability"
-msgstr ""
+msgstr "確率"
 
 msgid "Error Plots"
-msgstr ""
+msgstr "誤差プロット"
 
 msgid "Residual Plot"
-msgstr ""
+msgstr "残差プロット"
 
 msgid "Forecast Error Plot"
-msgstr ""
+msgstr "予測誤差プロット"
