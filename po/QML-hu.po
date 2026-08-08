@@ -24,6 +24,10 @@ msgid "Covariates"
 msgstr ""
 
 msgctxt "bayesianStateSpace|"
+msgid "Fixed Factors"
+msgstr ""
+
+msgctxt "bayesianStateSpace|"
 msgid "Time"
 msgstr ""
 
@@ -41,6 +45,10 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Credible interval"
+msgstr ""
+
+msgctxt "bayesianStateSpace|"
+msgid "Expected predictors"
 msgstr ""
 
 msgctxt "bayesianStateSpace|"
@@ -89,6 +97,14 @@ msgstr ""
 
 msgctxt "bayesianStateSpace|"
 msgid "Add dynamic regression component"
+msgstr ""
+
+msgctxt "bayesianStateSpace|"
+msgid ""
+"This component allows you to model the effect of covariates or fixed factors "
+"on the dependent variable. The lag of coefficients can be specified to "
+"account for delayed effects. Only available when covariates or fixed factors "
+"are present in the model."
 msgstr ""
 
 msgctxt "bayesianStateSpace|"
@@ -164,26 +180,6 @@ msgid "Show control chart"
 msgstr ""
 
 msgctxt "bayesianStateSpace|"
-msgid "Advanced Options"
-msgstr ""
-
-msgctxt "bayesianStateSpace|"
-msgid "Burn-in Specification"
-msgstr ""
-
-msgctxt "bayesianStateSpace|"
-msgid "Automatic suggestion"
-msgstr ""
-
-msgctxt "bayesianStateSpace|"
-msgid "Manual"
-msgstr ""
-
-msgctxt "bayesianStateSpace|"
-msgid "Expected predictors"
-msgstr ""
-
-msgctxt "bayesianStateSpace|"
 msgid "Control period end"
 msgstr ""
 
@@ -196,6 +192,10 @@ msgid "Show probalistic control plot"
 msgstr ""
 
 msgctxt "bayesianStateSpace|"
+msgid "Advanced Options"
+msgstr ""
+
+msgctxt "bayesianStateSpace|"
 msgid "Desired MCMC draws"
 msgstr ""
 
@@ -204,21 +204,21 @@ msgid "Timout in seconds"
 msgstr ""
 
 msgctxt "bayesianStateSpace|"
+msgid "Burn-in Specification"
+msgstr ""
+
+msgctxt "bayesianStateSpace|"
+msgid "Automatic suggestion"
+msgstr ""
+
+msgctxt "bayesianStateSpace|"
 msgid "Proportion"
 msgstr ""
 
 msgctxt "bayesianStateSpace|"
+msgid "Manual"
+msgstr ""
+
+msgctxt "bayesianStateSpace|"
 msgid "Seed"
-msgstr ""
-
-msgctxt "bayesianStateSpace|"
-msgid "Fixed Factors"
-msgstr ""
-
-msgctxt "bayesianStateSpace|"
-msgid ""
-"This component allows you to model the effect of covariates or fixed factors "
-"on the dependent variable. The lag of coefficients can be specified to "
-"account for delayed effects. Only available when covariates or fixed factors "
-"are present in the model."
 msgstr ""
