@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspBsts 0.95.0\n"
 "POT-Creation-Date: 2025-06-21 03:05\n"
-"PO-Revision-Date: 2026-07-28 05:01+0000\n"
+"PO-Revision-Date: 2026-08-02 05:01+0000\n"
 "Last-Translator: Koji Kosugi <kosugitti@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/jasp/jaspbsts-r/"
 "ja/>\n"
@@ -17,7 +17,7 @@ msgid "Unknown value provided for modelType, possible values: `alternative`, `nu
 msgstr "modelType に不明な値が指定されました。指定できる値: `alternative`, `null`"
 
 msgid "Model Summary"
-msgstr "モデルの要約"
+msgstr "モデルの概要"
 
 msgid "Residual SD"
 msgstr "残差SD"
@@ -54,16 +54,16 @@ msgid "Coefficients"
 msgstr "係数"
 
 msgid "P(incl)"
-msgstr "P(incl)"
+msgstr "P(効果を含む)"
 
 msgid "P(incl|data)"
-msgstr "P(incl|data)"
+msgstr "P（効果を含む|データ）"
 
 msgid "BF<sub>inclusion</sub>"
 msgstr "BF<sub>inclusion</sub>"
 
 msgid "Mean"
-msgstr "平均"
+msgstr "平均値"
 
 msgid "SD"
 msgstr "SD"
