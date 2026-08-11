@@ -42,11 +42,11 @@ msgstr "Résumé des coefficients a posteriori"
 
 msgctxt "bayesianStateSpace|"
 msgid "Show means across draws included"
-msgstr ""
+msgstr "Afficher les moyennes sur les tirages inclus"
 
 msgctxt "bayesianStateSpace|"
 msgid "Credible interval"
-msgstr ""
+msgstr "Intervalle de crédibilité"
 
 msgctxt "bayesianStateSpace|"
 msgid "Expected predictors"
@@ -54,7 +54,7 @@ msgstr "Prédicteurs attendus"
 
 msgctxt "bayesianStateSpace|"
 msgid "Model Components"
-msgstr ""
+msgstr "Composants du modèle"
 
 msgctxt "bayesianStateSpace|"
 msgid "Components"
@@ -74,15 +74,15 @@ msgstr "Manuellement"
 
 msgctxt "bayesianStateSpace|"
 msgid "No. of lags"
-msgstr ""
+msgstr "Nombre de décalages"
 
 msgctxt "bayesianStateSpace|"
 msgid "Automatic"
-msgstr ""
+msgstr "Automatique"
 
 msgctxt "bayesianStateSpace|"
 msgid "Maximal lags"
-msgstr ""
+msgstr "Nombre maximal de décalages"
 
 msgctxt "bayesianStateSpace|"
 msgid "Add local level component"
@@ -98,11 +98,11 @@ msgstr "Ajouter une tendance linéaire semi-locale"
 
 msgctxt "bayesianStateSpace|"
 msgid "Add dynamic regression component"
-msgstr ""
+msgstr "Ajouter un composant de régression dynamique"
 
 msgctxt "bayesianStateSpace|"
 msgid "Seasonalities"
-msgstr ""
+msgstr "Saisonnalités"
 
 msgctxt "bayesianStateSpace|"
 msgid "Name"
@@ -110,7 +110,7 @@ msgstr "Nom"
 
 msgctxt "bayesianStateSpace|"
 msgid "Number"
-msgstr ""
+msgstr "Nombre"
 
 msgctxt "bayesianStateSpace|"
 msgid "Duration"
@@ -122,103 +122,103 @@ msgstr "Prior inverse-gamma"
 
 msgctxt "bayesianStateSpace|"
 msgid "Normal prior initial state"
-msgstr ""
+msgstr "Prior normal pour l'état initial"
 
 msgctxt "bayesianStateSpace|"
 msgid "Plots"
-msgstr ""
+msgstr "Graphiques"
 
 msgctxt "bayesianStateSpace|"
 msgid "State Plots"
-msgstr ""
+msgstr "Graphiques d'état"
 
 msgctxt "bayesianStateSpace|"
 msgid "Aggregated state contribution"
-msgstr ""
+msgstr "Contribution d'état agrégée"
 
 msgctxt "bayesianStateSpace|"
 msgid "Show observations"
-msgstr ""
+msgstr "Afficher les observations"
 
 msgctxt "bayesianStateSpace|"
 msgid "Component state contribution"
-msgstr ""
+msgstr "Contribution de l'état du composant"
 
 msgctxt "bayesianStateSpace|"
 msgid "Residuals"
-msgstr ""
+msgstr "Résidus"
 
 msgctxt "bayesianStateSpace|"
 msgid "Posterior distribution of residuals"
-msgstr ""
+msgstr "Distribution a posteriori des résidus"
 
 msgctxt "bayesianStateSpace|"
 msgid "Posterior distribution of one-step-ahead prediction error"
-msgstr ""
+msgstr "Distribution a posteriori de l'erreur de prédiction à un pas"
 
 msgctxt "bayesianStateSpace|"
 msgid "Prediction"
-msgstr ""
+msgstr "Prédiction"
 
 msgctxt "bayesianStateSpace|"
 msgid "Horizon"
-msgstr ""
+msgstr "Horizon"
 
 msgctxt "bayesianStateSpace|"
 msgid "Control chart"
-msgstr ""
+msgstr "Graphique de contrôle"
 
 msgctxt "bayesianStateSpace|"
 msgid "Show control chart"
-msgstr ""
+msgstr "Afficher le graphique de contrôle"
 
 msgctxt "bayesianStateSpace|"
 msgid "Control period end"
-msgstr ""
+msgstr "Fin de la période de contrôle"
 
 msgctxt "bayesianStateSpace|"
 msgid "σ threshold"
-msgstr ""
+msgstr "Seuil σ"
 
 msgctxt "bayesianStateSpace|"
 msgid "Show probalistic control plot"
-msgstr ""
+msgstr "Afficher le graphique de contrôle probabiliste"
 
 msgctxt "bayesianStateSpace|"
 msgid "Advanced Options"
-msgstr ""
+msgstr "Options avancées"
 
 msgctxt "bayesianStateSpace|"
 msgid "Desired MCMC draws"
-msgstr ""
+msgstr "Tirages MCMC souhaités"
 
 msgctxt "bayesianStateSpace|"
 msgid "Timout in seconds"
-msgstr ""
+msgstr "Délai d'expiration en secondes"
 
 msgctxt "bayesianStateSpace|"
 msgid "Burn-in Specification"
-msgstr ""
+msgstr "Spécification de la période de chauffe"
 
 msgctxt "bayesianStateSpace|"
 msgid "Automatic suggestion"
-msgstr ""
+msgstr "Suggestion automatique"
 
 msgctxt "bayesianStateSpace|"
 msgid "Proportion"
-msgstr ""
+msgstr "Proportion"
 
 msgctxt "bayesianStateSpace|"
 msgid "Manual"
-msgstr ""
+msgstr "Manuel"
 
 msgctxt "bayesianStateSpace|"
 msgid "Seed"
-msgstr ""
+msgstr "Graine"
 
 msgctxt "bayesianStateSpace|"
 msgid "Fixed Factors"
-msgstr ""
+msgstr "Facteurs fixes"
 
 msgctxt "bayesianStateSpace|"
 msgid ""
@@ -227,3 +227,7 @@ msgid ""
 "account for delayed effects. Only available when covariates or fixed factors "
 "are present in the model."
 msgstr ""
+"Ce composant vous permet de modéliser l'effet des covariables ou des facteurs "
+"fixes sur la variable dépendante. Le décalage des coefficients peut être "
+"spécifié afin de tenir compte des effets retardés. Uniquement disponible "
+"lorsque des covariables ou des facteurs fixes sont présents dans le modèle."

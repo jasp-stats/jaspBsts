@@ -29,7 +29,7 @@ msgid "Prediction SD"
 msgstr "Écart-Type de la Prédiction"
 
 msgid "R%s"
-msgstr ""
+msgstr "R%s"
 
 msgid "Harvey's goodness of fit"
 msgstr "Qualité d'ajustement d'Harvey"
@@ -38,6 +38,8 @@ msgid ""
 "Only %1$s draws were sampled out of the desired %2$s. Additionally, %3$s "
 "MCMC draws out of %1$s are discarded as burn in."
 msgstr ""
+"Seuls %1$s tirages ont été échantillonnés sur les %2$s souhaités. De plus, "
+"%3$s tirages MCMC sur %1$s sont éliminés comme période de chauffe."
 
 #, fuzzy
 msgid "%1$d MCMC draws out of %2$d are discarded as burn in."
@@ -47,12 +49,14 @@ msgid ""
 "The local level component has been selected (by default). If you wish to "
 "adjust the model, you can do so under 'Model Components'."
 msgstr ""
+"La composante de niveau local a été sélectionnée (par défaut). Si vous "
+"souhaitez ajuster le modèle, vous pouvez le faire sous « Composants du modèle »."
 
 msgid "Posterior Summary of Coefficients"
-msgstr ""
+msgstr "Résumé a posteriori des coefficients"
 
 msgid "%s%% Credible Interval"
-msgstr ""
+msgstr "Intervalle de crédibilité à %s%%"
 
 msgid "Coefficients"
 msgstr "Coefficients"
@@ -67,13 +71,13 @@ msgid "BF<sub>inclusion</sub>"
 msgstr "FB<sub>inclusion</sub>"
 
 msgid "Mean"
-msgstr ""
+msgstr "Moyenne"
 
 msgid "SD"
-msgstr ""
+msgstr "Écart-type"
 
 msgid "Mean<sub>inclusion</sub>"
-msgstr ""
+msgstr "Moyenne<sub>inclusion</sub>"
 
 msgid "SD<sub>inclusion</sub>"
 msgstr "ET<sub>inclusion</sub>"
@@ -88,16 +92,16 @@ msgid "State Plots"
 msgstr "Tracé d'Etats"
 
 msgid "Aggregated State"
-msgstr ""
+msgstr "État agrégé"
 
 msgid "Time"
-msgstr ""
+msgstr "Temps"
 
 msgid "Distribution"
-msgstr ""
+msgstr "Distribution"
 
 msgid "Component States"
-msgstr ""
+msgstr "États des composants"
 
 #, fuzzy
 msgid "Prediction plot"
@@ -107,26 +111,30 @@ msgid "Control Plots"
 msgstr "Graphiques de contrôle"
 
 msgid "Threshold Plot"
-msgstr ""
+msgstr "Graphique de seuil"
 
 msgid ""
 "First date where %1$.3f*sigma is exceeded by %2$.1f%% state credible "
 "interval: %3$s"
 msgstr ""
+"Première date à laquelle l'intervalle de crédibilité de l'état de %2$.1f%% "
+"dépasse %1$.3f*sigma : %3$s"
 
 msgid ""
 "First time point where %1$.3f*sigma is exceeded by %2$.1f%% state credible "
 "interval: %3$s"
 msgstr ""
+"Premier point temporel à lequel l'intervalle de crédibilité de l'état de "
+"%2$.1f%% dépasse %1$.3f*sigma : %3$s"
 
 msgid "Threshold never reached"
-msgstr ""
+msgstr "Seuil jamais atteint"
 
 msgid "Probability Plot"
-msgstr ""
+msgstr "Graphique de probabilité"
 
 msgid "Probability"
-msgstr ""
+msgstr "Probabilité"
 
 msgid "Error Plots"
 msgstr "Graphiques d'Erreur"
