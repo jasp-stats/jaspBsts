@@ -39,7 +39,7 @@ msgstr "系数的后验摘要"
 
 msgctxt "bayesianStateSpace|"
 msgid "Show means across draws included"
-msgstr ""
+msgstr "显示包含抽样的均值"
 
 msgctxt "bayesianStateSpace|"
 msgid "Credible interval"
@@ -215,7 +215,7 @@ msgstr "种子(Seed)"
 
 msgctxt "bayesianStateSpace|"
 msgid "Fixed Factors"
-msgstr ""
+msgstr "固定因子"
 
 msgctxt "bayesianStateSpace|"
 msgid ""
@@ -224,3 +224,4 @@ msgid ""
 "account for delayed effects. Only available when covariates or fixed factors "
 "are present in the model."
 msgstr ""
+"此组件允许您建模协变量或固定因子对因变量的影响。可以指定系数的滞后以考虑延迟效应。仅当模型中存在协变量或固定因子时可用。"
