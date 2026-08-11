@@ -26,7 +26,7 @@ msgid "Prediction SD"
 msgstr "預測值標準差"
 
 msgid "R%s"
-msgstr ""
+msgstr "R%s"
 
 msgid "Harvey's goodness of fit"
 msgstr "Harvey 的適配度"
