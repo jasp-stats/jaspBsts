@@ -139,6 +139,68 @@ test_that("Model Summary table results match (seasonal)", {
 
 })
 
+test_that("Inclusion Bayes factor is the posterior inclusion odds divided by the prior inclusion odds", {
+  # the prior inclusion probability is 2/3 (not 1/2) here, so the Bayes factor differs from the posterior odds
+  optionsInclusion <- jaspTools::analysisOptions("bayesianStateSpace")
+  optionsInclusion$dependent <- "contNormal"
+  optionsInclusion$covariates <- c("contGamma", "contOutlier")
+  optionsInclusion$time <- "dateYear"
+  optionsInclusion$posteriorSummaryTable <- TRUE
+  optionsInclusion$localLevelComponent <- TRUE
+  optionsInclusion$samples <- 200
+  optionsInclusion$expectedPredictors <- 2
+  optionsInclusion$modelTerms <- list(list(components = "contGamma", isNuisance = FALSE), list(
+    components = "contOutlier", isNuisance = FALSE))
+  set.seed(1)
+  results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", optionsInclusion)
+  rows <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsCoefficientSummaryTable"]][["data"]]
+  checked <- 0
+  for (row in rows) {
+    expect_equal(row[["priorIncP"]], 2 / 3)
+    if (row[["postIncP"]] > 0 && row[["postIncP"]] < 1) {
+      expect_equal(row[["BFinc"]], (row[["postIncP"]] / (1 - row[["postIncP"]])) / (row[["priorIncP"]] / (1 - row[["priorIncP"]])))
+      checked <- checked + 1
+    }
+  }
+  expect_gt(checked, 0)
+})
+
+test_that("Residual and forecast error plots run when the dependent variable has missing values", {
+  optionsMissing <- jaspTools::analysisOptions("bayesianStateSpace")
+  optionsMissing$dependent <- "debMiss30"
+  optionsMissing$time <- "dateYear"
+  optionsMissing$localLevelComponent <- TRUE
+  optionsMissing$residualPlot <- TRUE
+  optionsMissing$forecastErrorPlot <- TRUE
+  optionsMissing$samples <- 20
+  set.seed(1)
+  results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", optionsMissing)
+  expect_identical(results[["status"]], "complete")
+  errorPlots <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsErrorPlots"]][["collection"]]
+  expect_length(errorPlots, 2)
+  for (plot in errorPlots) expect_false(isTRUE(plot[["error"]]))
+})
+
+test_that("Inclusion Bayes factor is empty when the prior inclusion probability is 1", {
+  optionsInclusion <- jaspTools::analysisOptions("bayesianStateSpace")
+  optionsInclusion$dependent <- "contNormal"
+  optionsInclusion$covariates <- c("contGamma", "contOutlier")
+  optionsInclusion$time <- "dateYear"
+  optionsInclusion$posteriorSummaryTable <- TRUE
+  optionsInclusion$localLevelComponent <- TRUE
+  optionsInclusion$samples <- 20
+  optionsInclusion$expectedPredictors <- 3
+  optionsInclusion$modelTerms <- list(list(components = "contGamma", isNuisance = FALSE), list(
+    components = "contOutlier", isNuisance = FALSE))
+  set.seed(1)
+  results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", optionsInclusion)
+  rows <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsCoefficientSummaryTable"]][["data"]]
+  for (row in rows) {
+    expect_equal(row[["priorIncP"]], 1)
+    expect_identical(row[["BFinc"]], "")
+  }
+})
+
 options <- jaspTools::analysisOptions("bayesianStateSpace")
 options$dependent <- "contNormal"
 options$covariates <- c("contcor1", "contcor2")
@@ -174,10 +236,10 @@ test_that("Posterior Summary of Coefficients table results match (local level - 
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsCoefficientSummaryTable"]][["data"]]
     jaspTools::expect_equal_tables(table,
-                                   list("<unicode><unicode><unicode>", "contcor1", 0.0710805371191776,
-                                        0.314637544172676, 1, 1, "", 0.375148071900377, "<unicode><unicode><unicode>",
+                                   list("", "contcor1", 0.0710805371191776,
+                                        0.314637544172676, 1, 1, "", 0.375148071900377, "",
                                         "contcor2", -0.287511723102937, -0.11088682615349, 1, 1, "",
-                                        0.0421351582659255, 0, "(Intercept)", 0, 0, 0, 1, "", 0))
+                                        0.0421351582659255, "", "(Intercept)", 0, 0, 0, 1, "", 0))
 
   }
 
@@ -218,10 +280,10 @@ test_that("Posterior Summary of Coefficients table results match (local level - 
     results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
     table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsCoefficientSummaryTable"]][["data"]]
     jaspTools::expect_equal_tables(table,
-                                   list("<unicode><unicode><unicode>", "facGenderm", 0.253231187396135,
-                                        0.609442717859108, 1, 1, "", 0.638874711991056, "<unicode><unicode><unicode>",
+                                   list("", "facGenderm", 0.253231187396135,
+                                        0.609442717859108, 1, 1, "", 0.638874711991056, "",
                                         "facExperimexperimental", -0.222080709900353, 0.0399657905691665,
-                                        1, 1, "", 0.271697756233028, 0, "(Intercept)", 0, 0, 0, 1, "",
+                                        1, 1, "", 0.271697756233028, "", "(Intercept)", 0, 0, 0, 1, "",
                                         0))
 
   }
@@ -457,10 +519,10 @@ test_that("Prediction plot matches", {
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsCoefficientSummaryTable"]][["data"]]
       jaspTools::expect_equal_tables(table,
-                                     list("<unicode>", "contcor1", 0.0437460818434989, 0.275790341778563,
-                                          1, 1, 0.142009518230305, 0.434946375191193, "<unicode>", "contcor2",
+                                     list("", "contcor1", 0.0437460818434989, 0.275790341778563,
+                                          1, 1, 0.142009518230305, 0.434946375191193, "", "contcor2",
                                           -0.321932103241681, -0.173635046880455, 1, 1, 0.105996027757027,
-                                          -0.0310099257617435, 0, "(Intercept)", 0, 0, 0, 1, 0, 0))
+                                          -0.0310099257617435, "", "(Intercept)", 0, 0, 0, 1, 0, 0))
 
     }
 
@@ -502,10 +564,10 @@ test_that("Prediction plot matches", {
       results <- jaspTools::runAnalysis("bayesianStateSpace", "bstsTest.csv", options)
       table <- results[["results"]][["bstsMainContainer"]][["collection"]][["bstsMainContainer_bstsCoefficientSummaryTable"]][["data"]]
       jaspTools::expect_equal_tables(table,
-                                     list("<unicode>", "facGenderm", 0.136625688072959, 0.461928614855287,
-                                          1, 1, 0.220891318762768, 0.742348181051067, "<unicode>", "facExperimexperimental",
+                                     list("", "facGenderm", 0.136625688072959, 0.461928614855287,
+                                          1, 1, 0.220891318762768, 0.742348181051067, "", "facExperimexperimental",
                                           -0.275546362761004, -0.0501265437197341, 1, 1, 0.163978897116324,
-                                          0.172523964528349, 0, "(Intercept)", 0, 0, 0, 1, 0, 0))
+                                          0.172523964528349, "", "(Intercept)", 0, 0, 0, 1, 0, 0))
 
     }
 

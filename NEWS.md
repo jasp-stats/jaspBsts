@@ -16,6 +16,10 @@
 
 # jaspBsts (development version)
 
+## Fixed
+* Residual plot and forecast error plot: a dependent variable with missing values crashed the analysis ("missing values and NaN's not allowed"). The credible interval of a missing observation is now left out of the plot.
+* Posterior summary of coefficients: the inclusion Bayes factor was the posterior inclusion odds and ignored the prior inclusion probability. It is now the posterior inclusion odds divided by the prior inclusion odds (unchanged when the prior inclusion probability is 0.5). It is left empty when the prior inclusion probability is 1 (for example with more expected predictors than terms), where it is undefined.
+
 
 
 ---

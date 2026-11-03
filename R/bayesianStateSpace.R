@@ -404,7 +404,9 @@ quantInv <- function(distr, value){
 .bstsFillCoefficientTable <- function(bstsResults,bstsCoefficientTable,options,ready) {
   res <- as.data.frame(summary(bstsResults,order = F)$coefficients)
   res$priorInc <- bstsResults$prior$prior.inclusion.probabilities
-  res$BFinc <- res$inc.prob/(1-res$inc.prob)
+  # inclusion Bayes factor = posterior inclusion odds / prior inclusion odds (undefined if the prior probability is 0 or 1)
+  priorOdds <- res$priorInc / (1 - res$priorInc)
+  res$BFinc <- ifelse(res$priorInc > 0 & res$priorInc < 1, res$inc.prob / (1 - res$inc.prob) / priorOdds, NA_real_)
 
 
 
@@ -756,8 +758,8 @@ quantInv <- function(distr, value){
   residuals <- bsts::residuals.bsts(bstsResults,options$burn)
 
   mean <- colMeans(residuals)
-  ymin <- apply(residuals,2,quantile,probs= ((1- options$aggregatedStatesPlotCiLevel)/2))
-  ymax <- apply(residuals,2,quantile,probs= 1-((1- options$aggregatedStatesPlotCiLevel)/2))
+  ymin <- apply(residuals,2,quantile,probs= ((1- options$aggregatedStatesPlotCiLevel)/2), na.rm = TRUE)
+  ymax <- apply(residuals,2,quantile,probs= 1-((1- options$aggregatedStatesPlotCiLevel)/2), na.rm = TRUE)
 
   time <- options$time
 
@@ -785,8 +787,8 @@ quantInv <- function(distr, value){
   errors <- bsts::bsts.prediction.errors(bstsResults,burn=options$burn)$in.sample
 
   mean <- colMeans(errors)
-  ymin <- apply(errors,2,quantile,probs= ((1- options$aggregatedStatesPlotCiLevel)/2))
-  ymax <- apply(errors,2,quantile,probs= 1-((1- options$aggregatedStatesPlotCiLevel)/2))
+  ymin <- apply(errors,2,quantile,probs= ((1- options$aggregatedStatesPlotCiLevel)/2), na.rm = TRUE)
+  ymax <- apply(errors,2,quantile,probs= 1-((1- options$aggregatedStatesPlotCiLevel)/2), na.rm = TRUE)
 
   time <- options$time
 
