@@ -2,21 +2,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspBsts 0.96.3\n"
 "POT-Creation-Date: 2026-04-25 03:40\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-11-11 18:55+0000\n"
+"Last-Translator: Fahad Mahfouz Al-Subhi "
+"<fahadalsubhi@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/jasp/jaspbsts-r/"
+"ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 msgid "Unknown value provided for modelType, possible values: `alternative`, `null`"
 msgstr ""
 
 msgid "Model Summary"
-msgstr ""
+msgstr "ملخص النموذج"
 
 msgid "Residual SD"
 msgstr ""
@@ -43,25 +46,25 @@ msgid "Posterior Summary of Coefficients"
 msgstr ""
 
 msgid "%s%% Credible Interval"
-msgstr ""
+msgstr "فترة المصداقية %s%%"
 
 msgid "Coefficients"
-msgstr ""
+msgstr "المعاملات"
 
 msgid "P(incl)"
-msgstr ""
+msgstr "P(incl)"
 
 msgid "P(incl|data)"
-msgstr ""
+msgstr "P(incl|data)"
 
 msgid "BF<sub>inclusion</sub>"
 msgstr ""
 
 msgid "Mean"
-msgstr ""
+msgstr "المتوسط"
 
 msgid "SD"
-msgstr ""
+msgstr "الانحراف المعياري (SD)"
 
 msgid "Mean<sub>inclusion</sub>"
 msgstr ""
@@ -70,10 +73,10 @@ msgid "SD<sub>inclusion</sub>"
 msgstr ""
 
 msgid "Lower"
-msgstr ""
+msgstr "الحد الأدنى"
 
 msgid "Upper"
-msgstr ""
+msgstr "الحد الأعلى"
 
 msgid "State Plots"
 msgstr ""
@@ -82,7 +85,7 @@ msgid "Aggregated State"
 msgstr ""
 
 msgid "Time"
-msgstr ""
+msgstr "الزمن"
 
 msgid "Distribution"
 msgstr ""
@@ -112,7 +115,7 @@ msgid "Probability Plot"
 msgstr ""
 
 msgid "Probability"
-msgstr ""
+msgstr "الاحتمال"
 
 msgid "Error Plots"
 msgstr ""
